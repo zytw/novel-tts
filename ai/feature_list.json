@@ -34,7 +34,7 @@
       "id": "novel-analysis",
       "description": "小说角色分析功能",
       "priority": 3,
-      "status": "failing",
+      "status": "passing",
       "acceptance": [
         "AI分析小说文本并识别角色",
         "为每个角色分配不同的音色和语气",

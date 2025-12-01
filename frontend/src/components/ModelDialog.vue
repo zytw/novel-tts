@@ -53,7 +53,7 @@
         >
           <el-option label="文本生成" value="text-generation" />
           <el-option label="对话模型" value="chat" />
-          <el-option label "代码生成" value="code-generation" />
+          <el-option label="代码生成" value="code-generation" />
           <el-option label="图像生成" value="image-generation" />
           <el-option label="语音合成" value="text-to-speech" />
         </el-select>

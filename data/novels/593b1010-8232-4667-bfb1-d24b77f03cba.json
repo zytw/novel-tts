@@ -1,0 +1,388 @@
+{
+  "id": "593b1010-8232-4667-bfb1-d24b77f03cba",
+  "title": "����С˵",
+  "description": "",
+  "promptId": "fantasy_world_1",
+  "modelId": "gpt-4",
+  "parameters": {},
+  "targetWordCount": 2000,
+  "status": "draft",
+  "content": "��һ�� ������һ����ͨ���ϰ��塣�����糿����������һ��������ӵ���ĵ�����ͻȻ�����������г�����һ����ֵĹ�â����������ץס���֣�ֻ����âԽ��Խ����������ʱ����������һ�����ص��������Ժ������𣺡���ӭ���������磬�¸ҵ�ð���ߡ��ڶ��� ������һ�ҿ��ȵ���ϰ塣һ��������ֶ�����������˽��������˵���˵��������˵��Ŀ����������Ч�������þ����߻ָ�����������ͣ�����еĻ����ؿ�����������˵��ʲô��",
+  "currentWordCount": 322,
+  "versions": [],
+  "createdAt": "2025-12-01T06:25:16.278Z",
+  "updatedAt": "2025-12-01T06:25:48.168Z",
+  "characterAnalysis": {
+    "analysis_summary": {
+      "total_characters": 3,
+      "main_characters": [
+        "张三",
+        "李四"
+      ],
+      "narrator_type": "third_person_limited",
+      "story_tone": "neutral"
+    },
+    "characters": [
+      {
+        "id": "char_1",
+        "name": "张三",
+        "aliases": [
+          "张三君",
+          "张三兄"
+        ],
+        "gender": "male",
+        "age_range": "young_adult",
+        "occupation": "unknown",
+        "personality": [
+          "calm",
+          "curious",
+          "serious"
+        ],
+        "behavior_pattern": {
+          "social_orientation": "introverted",
+          "decision_style": "analytical",
+          "emotional_expression": "open"
+        },
+        "dialogue_analysis": {
+          "dialogue_count": 19,
+          "total_words": 472,
+          "common_phrases": [
+            "我觉得",
+            "这样不错",
+            "你知道吗"
+          ],
+          "speech_style": "casual",
+          "emotional_tone": "positive"
+        },
+        "relationships": {
+          "with_others": {},
+          "social_status": "equal",
+          "emotional_attitude": "friendly"
+        },
+        "story_importance": "protagonist"
+      },
+      {
+        "id": "char_2",
+        "name": "李四",
+        "aliases": [
+          "李四君",
+          "李四兄"
+        ],
+        "gender": "female",
+        "age_range": "young_adult",
+        "occupation": "unknown",
+        "personality": [
+          "humorous",
+          "optimistic",
+          "curious",
+          "calm"
+        ],
+        "behavior_pattern": {
+          "social_orientation": "introverted",
+          "decision_style": "analytical",
+          "emotional_expression": "open"
+        },
+        "dialogue_analysis": {
+          "dialogue_count": 36,
+          "total_words": 439,
+          "common_phrases": [
+            "我觉得",
+            "这样不错",
+            "你知道吗"
+          ],
+          "speech_style": "casual",
+          "emotional_tone": "positive"
+        },
+        "relationships": {
+          "with_others": {},
+          "social_status": "equal",
+          "emotional_attitude": "friendly"
+        },
+        "story_importance": "supporting"
+      }
+    ],
+    "narrator": {
+      "type": "third_person_limited",
+      "identity": "unknown",
+      "style": {
+        "language": "objective",
+        "emotion": "neutral",
+        "pace": "moderate"
+      }
+    },
+    "dialogue_distribution": {
+      "total_dialogues": 40,
+      "character_proportions": [
+        0.3240211207444225,
+        0.6759788792555774
+      ]
+    }
+  },
+  "analysisStatus": "completed",
+  "analyzedAt": "2025-12-01T06:26:04.759Z",
+  "voiceConfiguration": {
+    "voice_configuration": {
+      "narrator": {
+        "voice_profile": {
+          "tone": "neutral",
+          "pitch": "medium",
+          "speed": "normal",
+          "volume": "normal",
+          "emotion": "calm",
+          "clarity": "clear"
+        },
+        "special_effects": [],
+        "description": "中性叙述声音，适合长时间聆听"
+      },
+      "characters": [
+        {
+          "character_id": "char_1",
+          "voice_profile": {
+            "tone": "serious",
+            "pitch": "low",
+            "speed": "fast",
+            "volume": "normal",
+            "emotion": "calm",
+            "clarity": "clear"
+          },
+          "special_effects": [
+            {
+              "type": "warmth",
+              "intensity": "moderate"
+            }
+          ],
+          "description": "张三的专属音色配置"
+        },
+        {
+          "character_id": "char_2",
+          "voice_profile": {
+            "tone": "cheerful",
+            "pitch": "medium",
+            "speed": "slow",
+            "volume": "loud",
+            "emotion": "serious",
+            "clarity": "clear"
+          },
+          "special_effects": [
+            {
+              "type": "warmth",
+              "intensity": "moderate"
+            }
+          ],
+          "description": "李四的专属音色配置"
+        }
+      ]
+    },
+    "voice_mapping_rules": {
+      "dialogue_vs_narration": {
+        "dialogue_emphasis": "enhanced",
+        "narration_emphasis": "neutral"
+      },
+      "emotional_scaling": {
+        "happy": "pitch_up",
+        "sad": "pitch_down",
+        "angry": "volume_up",
+        "surprised": "speed_up"
+      }
+    },
+    "technical_specifications": {
+      "sample_rate": "22050",
+      "bit_depth": "16",
+      "channels": 1,
+      "format": "wav"
+    }
+  },
+  "voiceConfigStatus": "completed",
+  "voiceConfiguredAt": "2025-12-01T06:26:06.465Z",
+  "ttsScript": {
+    "novelId": "593b1010-8232-4667-bfb1-d24b77f03cba",
+    "title": "����С˵",
+    "totalSegments": 1,
+    "totalDuration": 96.60000000000001,
+    "characters": [
+      {
+        "id": "char_1",
+        "name": "张三",
+        "aliases": [
+          "张三君",
+          "张三兄"
+        ],
+        "gender": "male",
+        "age_range": "young_adult",
+        "occupation": "unknown",
+        "personality": [
+          "calm",
+          "curious",
+          "serious"
+        ],
+        "behavior_pattern": {
+          "social_orientation": "introverted",
+          "decision_style": "analytical",
+          "emotional_expression": "open"
+        },
+        "dialogue_analysis": {
+          "dialogue_count": 19,
+          "total_words": 472,
+          "common_phrases": [
+            "我觉得",
+            "这样不错",
+            "你知道吗"
+          ],
+          "speech_style": "casual",
+          "emotional_tone": "positive"
+        },
+        "relationships": {
+          "with_others": {},
+          "social_status": "equal",
+          "emotional_attitude": "friendly"
+        },
+        "story_importance": "protagonist"
+      },
+      {
+        "id": "char_2",
+        "name": "李四",
+        "aliases": [
+          "李四君",
+          "李四兄"
+        ],
+        "gender": "female",
+        "age_range": "young_adult",
+        "occupation": "unknown",
+        "personality": [
+          "humorous",
+          "optimistic",
+          "curious",
+          "calm"
+        ],
+        "behavior_pattern": {
+          "social_orientation": "introverted",
+          "decision_style": "analytical",
+          "emotional_expression": "open"
+        },
+        "dialogue_analysis": {
+          "dialogue_count": 36,
+          "total_words": 439,
+          "common_phrases": [
+            "我觉得",
+            "这样不错",
+            "你知道吗"
+          ],
+          "speech_style": "casual",
+          "emotional_tone": "positive"
+        },
+        "relationships": {
+          "with_others": {},
+          "social_status": "equal",
+          "emotional_attitude": "friendly"
+        },
+        "story_importance": "supporting"
+      }
+    ],
+    "narrator": {
+      "type": "third_person_limited",
+      "identity": "unknown",
+      "style": {
+        "language": "objective",
+        "emotion": "neutral",
+        "pace": "moderate"
+      }
+    },
+    "voiceConfiguration": {
+      "voice_configuration": {
+        "narrator": {
+          "voice_profile": {
+            "tone": "neutral",
+            "pitch": "medium",
+            "speed": "normal",
+            "volume": "normal",
+            "emotion": "calm",
+            "clarity": "clear"
+          },
+          "special_effects": [],
+          "description": "中性叙述声音，适合长时间聆听"
+        },
+        "characters": [
+          {
+            "character_id": "char_1",
+            "voice_profile": {
+              "tone": "serious",
+              "pitch": "low",
+              "speed": "fast",
+              "volume": "normal",
+              "emotion": "calm",
+              "clarity": "clear"
+            },
+            "special_effects": [
+              {
+                "type": "warmth",
+                "intensity": "moderate"
+              }
+            ],
+            "description": "张三的专属音色配置"
+          },
+          {
+            "character_id": "char_2",
+            "voice_profile": {
+              "tone": "cheerful",
+              "pitch": "medium",
+              "speed": "slow",
+              "volume": "loud",
+              "emotion": "serious",
+              "clarity": "clear"
+            },
+            "special_effects": [
+              {
+                "type": "warmth",
+                "intensity": "moderate"
+              }
+            ],
+            "description": "李四的专属音色配置"
+          }
+        ]
+      },
+      "voice_mapping_rules": {
+        "dialogue_vs_narration": {
+          "dialogue_emphasis": "enhanced",
+          "narration_emphasis": "neutral"
+        },
+        "emotional_scaling": {
+          "happy": "pitch_up",
+          "sad": "pitch_down",
+          "angry": "volume_up",
+          "surprised": "speed_up"
+        }
+      },
+      "technical_specifications": {
+        "sample_rate": "22050",
+        "bit_depth": "16",
+        "channels": 1,
+        "format": "wav"
+      }
+    },
+    "segments": [
+      {
+        "id": "segment_0",
+        "text": "��һ�� ������һ����ͨ���ϰ��塣�����糿����������һ��������ӵ���ĵ�����ͻȻ�����������г�����һ����ֵĹ�â����������ץס���֣�ֻ����âԽ��Խ����������ʱ����������һ�����ص��������Ժ������𣺡���ӭ���������磬�¸ҵ�ð���ߡ��ڶ��� ������һ�ҿ��ȵ���ϰ塣һ��������ֶ�����������˽��������˵���˵��������˵��Ŀ����������Ч�������þ����߻ָ�����������ͣ�����еĻ����ؿ�����������˵��ʲô��",
+        "type": "narration",
+        "character": "narrator",
+        "voiceProfile": {
+          "tone": "neutral",
+          "pitch": "medium",
+          "speed": "normal",
+          "volume": "normal",
+          "emotion": "calm",
+          "clarity": "clear"
+        },
+        "timestamp": 0,
+        "emotion": "neutral",
+        "duration": 96.60000000000001
+      }
+    ],
+    "metadata": {
+      "generatedAt": "2025-12-01T06:26:06.467Z",
+      "version": "1.0"
+    }
+  },
+  "scriptStatus": "completed",
+  "scriptGeneratedAt": "2025-12-01T06:26:06.467Z"
+}

@@ -5,6 +5,7 @@ require('dotenv').config();
 
 const modelsRouter = require('../routes/models');
 const novelRouter = require('../routes/novel');
+const analysisRouter = require('../routes/analysis');
 const { errorHandler } = require('../middleware/errorHandler');
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 // 路由
 app.use('/api/models', modelsRouter);
 app.use('/api/novel', novelRouter);
+app.use('/api/analysis', analysisRouter);
 
 // 健康检查
 app.get('/health', (req, res) => {
