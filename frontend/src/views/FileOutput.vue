@@ -212,7 +212,7 @@
             <el-button
               type="primary"
               size="small"
-              @click="previewFile(row)"
+              @click="previewFileContent(row)"
               :icon="View"
             >
               预览
@@ -668,7 +668,7 @@ const downloadFile = (file) => {
 }
 
 // 预览文件
-const previewFile = async (file) => {
+const previewFileContent = async (file) => {
   previewFile.value = file
 
   // 只预览文本类文件

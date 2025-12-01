@@ -411,7 +411,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { Document } from '@element-plus/icons-vue'
 
 export default {
-  name: 'Subtitle',
+  name: 'SubtitleView',
   components: {
     Document
   },
@@ -559,10 +559,10 @@ export default {
 
     const getCharacterTagType = (character) => {
       const types = {
-        'narrator': 'info',
-        'protagonist': 'success',
-        'antagonist': 'danger',
-        'friend': 'warning'
+        narrator: 'info',
+        protagonist: 'success',
+        antagonist: 'danger',
+        friend: 'warning'
       }
       return types[character] || 'primary'
     }

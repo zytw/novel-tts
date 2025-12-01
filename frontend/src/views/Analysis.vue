@@ -137,7 +137,7 @@ import AnalysisDetailDialog from '../components/analysis/AnalysisDetailDialog.vu
 import ScriptPreviewDialog from '../components/analysis/ScriptPreviewDialog.vue'
 
 export default {
-  name: 'Analysis',
+  name: 'AnalysisView',
   components: {
     DataAnalysis,
     Refresh,

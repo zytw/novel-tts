@@ -106,8 +106,8 @@
             <el-table-column prop="emotion" label="情感" width="100" />
             <el-table-column prop="segments" label="段落数" width="100" />
             <el-table-column label="操作" width="100">
-              <template #default="scope="{ row }">
-                <el-button size="small" @click="highlightSegments(row.name)">
+              <template #default="scope">
+                <el-button size="small" @click="highlightSegments(scope.row.name)">
                   高亮
                 </el-button>
               </template>

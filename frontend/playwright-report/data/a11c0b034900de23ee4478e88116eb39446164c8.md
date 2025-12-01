@@ -1,0 +1,461 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e10]:
+    - generic [ref=e13]:
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - img [ref=e18]
+          - heading "SoundStory AI" [level=1] [ref=e21]
+        - paragraph [ref=e22]: 声波叙事 · AI创作平台
+      - navigation [ref=e23]:
+        - link "🏠 首页" [ref=e24] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e25]: 🏠
+          - generic [ref=e26]: 首页
+        - link "🤖 模型配置" [ref=e28] [cursor=pointer]:
+          - /url: /models
+          - generic [ref=e29]: 🤖
+          - generic [ref=e30]: 模型配置
+        - link "✍️ 小说生成" [ref=e31] [cursor=pointer]:
+          - /url: /novel
+          - generic [ref=e32]: ✍️
+          - generic [ref=e33]: 小说生成
+        - link "🎭 角色分析" [ref=e34] [cursor=pointer]:
+          - /url: /analysis
+          - generic [ref=e35]: 🎭
+          - generic [ref=e36]: 角色分析
+        - link "🎙️ 语音合成" [ref=e37] [cursor=pointer]:
+          - /url: /tts
+          - generic [ref=e38]: 🎙️
+          - generic [ref=e39]: 语音合成
+        - link "📝 字幕生成" [ref=e40] [cursor=pointer]:
+          - /url: /subtitle
+          - generic [ref=e41]: 📝
+          - generic [ref=e42]: 字幕生成
+        - link "📦 文件输出" [ref=e43] [cursor=pointer]:
+          - /url: /output
+          - generic [ref=e44]: 📦
+          - generic [ref=e45]: 文件输出
+    - main [ref=e46]:
+      - generic [ref=e48]:
+        - generic [ref=e73]:
+          - generic [ref=e74]:
+            - generic [ref=e76]: 🔥 全新 AI 体验
+            - heading "SoundStory AI" [level=1] [ref=e77]:
+              - generic [ref=e78]: SoundStory
+              - generic [ref=e79]: AI
+            - paragraph [ref=e80]: 声波叙事 · 让每一个故事都有独特的声音
+            - paragraph [ref=e81]:
+              - text: 融合尖端AI技术，打造从文字到声音的完整创作链路
+              - text: 为你的故事注入灵魂，让角色真正"活"起来
+            - generic [ref=e82]:
+              - button "✨ 开始创作" [ref=e83] [cursor=pointer]:
+                - generic [ref=e84]: ✨
+                - generic [ref=e85]: 开始创作
+              - button "⚙️ 配置模型" [ref=e87] [cursor=pointer]:
+                - generic [ref=e88]: ⚙️
+                - generic [ref=e89]: 配置模型
+          - img [ref=e97]
+        - generic [ref=e106]:
+          - generic [ref=e107]:
+            - generic [ref=e108]: 🤖
+            - generic [ref=e109]:
+              - generic [ref=e110]: "0"
+              - generic [ref=e111]: 可用AI模型
+          - generic [ref=e113]:
+            - generic [ref=e114]: 📚
+            - generic [ref=e115]:
+              - generic [ref=e116]: "0"
+              - generic [ref=e117]: 创作小说
+          - generic [ref=e119]:
+            - generic [ref=e120]: 🎵
+            - generic [ref=e121]:
+              - generic [ref=e122]: "0"
+              - generic [ref=e123]: 生成音频
+          - generic [ref=e125]:
+            - generic [ref=e126]: 📦
+            - generic [ref=e127]:
+              - generic [ref=e128]: "0"
+              - generic [ref=e129]: 导出文件
+        - generic [ref=e131]:
+          - generic [ref=e132]:
+            - generic [ref=e133]: 核心功能
+            - heading "完整创作链路" [level=2] [ref=e134]
+            - paragraph [ref=e135]: 从灵感到成品，一站式AI小说创作解决方案
+          - generic [ref=e136]:
+            - generic [ref=e140] [cursor=pointer]:
+              - generic [ref=e142]: ⚙️
+              - heading "AI模型配置" [level=3] [ref=e143]
+              - paragraph [ref=e144]: 支持GPT、Claude、本地大模型等多种AI引擎，自由配置参数获得最佳创作效果
+              - generic [ref=e145]:
+                - generic [ref=e146]: 立即体验
+                - generic [ref=e147]: →
+            - generic [ref=e151] [cursor=pointer]:
+              - generic [ref=e153]: ✍️
+              - heading "智能小说创作" [level=3] [ref=e154]
+              - paragraph [ref=e155]: 基于深度学习的创意写作引擎，自动生成情节、对话和角色发展
+              - generic [ref=e156]:
+                - generic [ref=e157]: 立即体验
+                - generic [ref=e158]: →
+            - generic [ref=e162] [cursor=pointer]:
+              - generic [ref=e164]: 🎭
+              - heading "角色智能分析" [level=3] [ref=e165]
+              - paragraph [ref=e166]: AI驱动的角色性格分析，为每个角色匹配最合适的音色和语调
+              - generic [ref=e167]:
+                - generic [ref=e168]: 立即体验
+                - generic [ref=e169]: →
+            - generic [ref=e173] [cursor=pointer]:
+              - generic [ref=e175]: 🎙️
+              - heading "专业语音合成" [level=3] [ref=e176]
+              - paragraph [ref=e177]: 集成INDEX-TTS2引擎，支持情感化语音合成和多角色声音定制
+              - generic [ref=e178]:
+                - generic [ref=e179]: 立即体验
+                - generic [ref=e180]: →
+            - generic [ref=e184] [cursor=pointer]:
+              - generic [ref=e186]: 📝
+              - heading "智能字幕生成" [level=3] [ref=e187]
+              - paragraph [ref=e188]: 自动生成精确的时间轴字幕，支持多种格式和样式自定义
+              - generic [ref=e189]:
+                - generic [ref=e190]: 立即体验
+                - generic [ref=e191]: →
+            - generic [ref=e195] [cursor=pointer]:
+              - generic [ref=e197]: 📦
+              - heading "批量文件输出" [level=3] [ref=e198]
+              - paragraph [ref=e199]: 一键导出音频、文本、字幕等完整资源，支持云端存储和本地下载
+              - generic [ref=e200]:
+                - generic [ref=e201]: 立即体验
+                - generic [ref=e202]: →
+        - generic [ref=e203]:
+          - generic [ref=e204]:
+            - generic [ref=e205]: 创作流程
+            - heading "五步成章" [level=2] [ref=e206]
+            - paragraph [ref=e207]: 简单几步，完成从文字到声音的神奇转换
+          - generic [ref=e210]:
+            - generic [ref=e211]:
+              - generic [ref=e212]: "1"
+              - generic [ref=e213]:
+                - generic [ref=e214]: ⚙️
+                - heading "配置AI模型" [level=3] [ref=e215]
+                - paragraph [ref=e216]: 选择合适的AI引擎，配置创作参数和风格设置
+            - generic [ref=e219]:
+              - generic [ref=e220]: "2"
+              - generic [ref=e221]:
+                - generic [ref=e222]: ✍️
+                - heading "创作小说内容" [level=3] [ref=e223]
+                - paragraph [ref=e224]: 输入创意或大纲，AI自动生成完整的小说章节
+            - generic [ref=e227]:
+              - generic [ref=e228]: "3"
+              - generic [ref=e229]:
+                - generic [ref=e230]: 🎭
+                - heading "角色分析" [level=3] [ref=e231]
+                - paragraph [ref=e232]: 智能分析角色性格，匹配个性化语音特征
+            - generic [ref=e235]:
+              - generic [ref=e236]: "4"
+              - generic [ref=e237]:
+                - generic [ref=e238]: 🎙️
+                - heading "语音合成" [level=3] [ref=e239]
+                - paragraph [ref=e240]: 高质量TTS合成，为每个角色赋予独特声音
+            - generic [ref=e243]:
+              - generic [ref=e244]: "5"
+              - generic [ref=e245]:
+                - generic [ref=e246]: 📦
+                - heading "导出成品" [level=3] [ref=e247]
+                - paragraph [ref=e248]: 生成完整的音频小说和配套字幕文件
+        - generic [ref=e249]:
+          - generic [ref=e250]:
+            - generic [ref=e251]: 系统监控
+            - heading "实时状态" [level=2] [ref=e252]
+            - paragraph [ref=e253]: 确保您的创作过程顺畅无阻
+          - generic [ref=e256]:
+            - generic [ref=e258]:
+              - img [ref=e260]
+              - generic [ref=e262]: API 服务状态
+              - button "刷新" [ref=e263] [cursor=pointer]:
+                - generic [ref=e264]: 刷新
+            - generic [ref=e265]:
+              - alert [ref=e267]:
+                - img [ref=e269]
+                - generic [ref=e271]:
+                  - generic [ref=e272]: 服务异常
+                  - paragraph [ref=e273]: 所有API服务都可能存在问题
+              - separator [ref=e274]
+              - generic [ref=e275]:
+                - generic [ref=e276]:
+                  - generic [ref=e277]:
+                    - generic [ref=e278]:
+                      - img [ref=e280]
+                      - text: AI模型服务
+                    - generic [ref=e282]: /api/models
+                  - generic [ref=e285]: 异常
+                  - generic [ref=e286]:
+                    - generic [ref=e287]: 响应时间:0ms
+                    - generic [ref=e288]: 最后检查:20:05:32
+                - generic [ref=e289]:
+                  - generic [ref=e290]:
+                    - generic [ref=e291]:
+                      - img [ref=e293]
+                      - text: 小说生成
+                    - generic [ref=e295]: /api/novel
+                  - generic [ref=e298]: 异常
+                  - generic [ref=e299]:
+                    - generic [ref=e300]: 响应时间:0ms
+                    - generic [ref=e301]: 最后检查:20:05:32
+                - generic [ref=e302]:
+                  - generic [ref=e303]:
+                    - generic [ref=e304]:
+                      - img [ref=e306]
+                      - text: 角色分析
+                    - generic [ref=e308]: /api/analysis
+                  - generic [ref=e311]: 异常
+                  - generic [ref=e312]:
+                    - generic [ref=e313]: 响应时间:0ms
+                    - generic [ref=e314]: 最后检查:20:05:32
+                - generic [ref=e315]:
+                  - generic [ref=e316]:
+                    - generic [ref=e317]: 语音合成
+                    - generic [ref=e319]: /api/tts
+                  - generic [ref=e322]: 异常
+                  - generic [ref=e323]:
+                    - generic [ref=e324]: 响应时间:0ms
+                    - generic [ref=e325]: 最后检查:20:05:32
+                - generic [ref=e326]:
+                  - generic [ref=e327]:
+                    - generic [ref=e328]:
+                      - img [ref=e330]
+                      - text: 字幕生成
+                    - generic [ref=e332]: /api/subtitle
+                  - generic [ref=e335]: 异常
+                  - generic [ref=e336]:
+                    - generic [ref=e337]: 响应时间:0ms
+                    - generic [ref=e338]: 最后检查:20:05:32
+                - generic [ref=e339]:
+                  - generic [ref=e340]:
+                    - generic [ref=e341]:
+                      - img [ref=e343]
+                      - text: 文件输出
+                    - generic [ref=e345]: /api/file-output
+                  - generic [ref=e348]: 异常
+                  - generic [ref=e349]:
+                    - generic [ref=e350]: 响应时间:0ms
+                    - generic [ref=e351]: 最后检查:20:05:32
+              - separator [ref=e352]
+              - generic [ref=e353]:
+                - heading "API 统计信息" [level=4] [ref=e354]
+                - generic [ref=e355]:
+                  - generic [ref=e357]:
+                    - generic [ref=e358]: "1475"
+                    - generic [ref=e359]: 总请求数
+                  - generic [ref=e361]:
+                    - generic [ref=e362]: 93%
+                    - generic [ref=e363]: 成功率
+                  - generic [ref=e365]:
+                    - generic [ref=e366]: 70ms
+                    - generic [ref=e367]: 平均响应
+                  - generic [ref=e369]:
+                    - generic [ref=e370]: "103"
+                    - generic [ref=e371]: 错误数
+              - separator [ref=e372]
+              - generic [ref=e373]:
+                - heading "最近请求" [level=4] [ref=e374]
+                - generic [ref=e376]:
+                  - table [ref=e378]:
+                    - rowgroup [ref=e385]:
+                      - row "方法 接口 状态 耗时 时间" [ref=e386]:
+                        - columnheader "方法" [ref=e387]:
+                          - generic [ref=e388]: 方法
+                        - columnheader "接口" [ref=e389]:
+                          - generic [ref=e390]: 接口
+                        - columnheader "状态" [ref=e391]:
+                          - generic [ref=e392]: 状态
+                        - columnheader "耗时" [ref=e393]:
+                          - generic [ref=e394]: 耗时
+                        - columnheader "时间" [ref=e395]:
+                          - generic [ref=e396]: 时间
+                  - table [ref=e401]:
+                    - rowgroup [ref=e408]:
+                      - row "GET /api/models 200 21ms 20:05:03" [ref=e409]:
+                        - cell "GET" [ref=e410]:
+                          - generic [ref=e413]: GET
+                        - cell "/api/models" [ref=e414]:
+                          - generic [ref=e415]: /api/models
+                        - cell "200" [ref=e416]:
+                          - generic [ref=e419]: "200"
+                        - cell "21ms" [ref=e420]:
+                          - generic [ref=e421]: 21ms
+                        - cell "20:05:03" [ref=e422]:
+                          - generic [ref=e423]: 20:05:03
+                      - row "PUT /api/novel 200 48ms 20:04:38" [ref=e424]:
+                        - cell "PUT" [ref=e425]:
+                          - generic [ref=e428]: PUT
+                        - cell "/api/novel" [ref=e429]:
+                          - generic [ref=e430]: /api/novel
+                        - cell "200" [ref=e431]:
+                          - generic [ref=e434]: "200"
+                        - cell "48ms" [ref=e435]:
+                          - generic [ref=e436]: 48ms
+                        - cell "20:04:38" [ref=e437]:
+                          - generic [ref=e438]: 20:04:38
+                      - row "DELETE /api/tts 200 315ms 20:03:47" [ref=e439]:
+                        - cell "DELETE" [ref=e440]:
+                          - generic [ref=e443]: DELETE
+                        - cell "/api/tts" [ref=e444]:
+                          - generic [ref=e445]: /api/tts
+                        - cell "200" [ref=e446]:
+                          - generic [ref=e449]: "200"
+                        - cell "315ms" [ref=e450]:
+                          - generic [ref=e451]: 315ms
+                        - cell "20:03:47" [ref=e452]:
+                          - generic [ref=e453]: 20:03:47
+                      - row "POST /api/novel 200 254ms 20:03:09" [ref=e454]:
+                        - cell "POST" [ref=e455]:
+                          - generic [ref=e458]: POST
+                        - cell "/api/novel" [ref=e459]:
+                          - generic [ref=e460]: /api/novel
+                        - cell "200" [ref=e461]:
+                          - generic [ref=e464]: "200"
+                        - cell "254ms" [ref=e465]:
+                          - generic [ref=e466]: 254ms
+                        - cell "20:03:09" [ref=e467]:
+                          - generic [ref=e468]: 20:03:09
+                      - row "PUT /api/tts 200 97ms 20:02:07" [ref=e469]:
+                        - cell "PUT" [ref=e470]:
+                          - generic [ref=e473]: PUT
+                        - cell "/api/tts" [ref=e474]:
+                          - generic [ref=e475]: /api/tts
+                        - cell "200" [ref=e476]:
+                          - generic [ref=e479]: "200"
+                        - cell "97ms" [ref=e480]:
+                          - generic [ref=e481]: 97ms
+                        - cell "20:02:07" [ref=e482]:
+                          - generic [ref=e483]: 20:02:07
+                      - row "DELETE /api/subtitle 400 335ms 20:02:07" [ref=e484]:
+                        - cell "DELETE" [ref=e485]:
+                          - generic [ref=e488]: DELETE
+                        - cell "/api/subtitle" [ref=e489]:
+                          - generic [ref=e490]: /api/subtitle
+                        - cell "400" [ref=e491]:
+                          - generic [ref=e494]: "400"
+                        - cell "335ms" [ref=e495]:
+                          - generic [ref=e496]: 335ms
+                        - cell "20:02:07" [ref=e497]:
+                          - generic [ref=e498]: 20:02:07
+                      - row "POST /api/novel 200 450ms 20:01:59" [ref=e499]:
+                        - cell "POST" [ref=e500]:
+                          - generic [ref=e503]: POST
+                        - cell "/api/novel" [ref=e504]:
+                          - generic [ref=e505]: /api/novel
+                        - cell "200" [ref=e506]:
+                          - generic [ref=e509]: "200"
+                        - cell "450ms" [ref=e510]:
+                          - generic [ref=e511]: 450ms
+                        - cell "20:01:59" [ref=e512]:
+                          - generic [ref=e513]: 20:01:59
+                      - row "DELETE /api/novel 200 142ms 20:01:49" [ref=e514]:
+                        - cell "DELETE" [ref=e515]:
+                          - generic [ref=e518]: DELETE
+                        - cell "/api/novel" [ref=e519]:
+                          - generic [ref=e520]: /api/novel
+                        - cell "200" [ref=e521]:
+                          - generic [ref=e524]: "200"
+                        - cell "142ms" [ref=e525]:
+                          - generic [ref=e526]: 142ms
+                        - cell "20:01:49" [ref=e527]:
+                          - generic [ref=e528]: 20:01:49
+                      - row "PUT /api/novel 200 254ms 20:01:04" [ref=e529]:
+                        - cell "PUT" [ref=e530]:
+                          - generic [ref=e533]: PUT
+                        - cell "/api/novel" [ref=e534]:
+                          - generic [ref=e535]: /api/novel
+                        - cell "200" [ref=e536]:
+                          - generic [ref=e539]: "200"
+                        - cell "254ms" [ref=e540]:
+                          - generic [ref=e541]: 254ms
+                        - cell "20:01:04" [ref=e542]:
+                          - generic [ref=e543]: 20:01:04
+                      - row "POST /api/novel 200 125ms 20:00:39" [ref=e544]:
+                        - cell "POST" [ref=e545]:
+                          - generic [ref=e548]: POST
+                        - cell "/api/novel" [ref=e549]:
+                          - generic [ref=e550]: /api/novel
+                        - cell "200" [ref=e551]:
+                          - generic [ref=e554]: "200"
+                        - cell "125ms" [ref=e555]:
+                          - generic [ref=e556]: 125ms
+                        - cell "20:00:39" [ref=e557]:
+                          - generic [ref=e558]: 20:00:39
+        - generic [ref=e560]:
+          - generic [ref=e561]:
+            - heading "准备好开始您的AI创作之旅了吗？" [level=2] [ref=e562]
+            - paragraph [ref=e563]: 加入数万名创作者，体验前所未有的小说创作方式
+          - generic [ref=e564]:
+            - button "立即开始" [ref=e565] [cursor=pointer]: 立即开始
+            - button "查看文档" [ref=e566] [cursor=pointer]
+    - generic [ref=e571]:
+      - generic [ref=e572]:
+        - paragraph [ref=e573]: © 2025 SoundStory AI - 声波叙事平台
+        - paragraph [ref=e574]: 让每一个故事都有独特的声音
+      - generic [ref=e575]:
+        - generic [ref=e576] [cursor=pointer]: API文档
+        - generic [ref=e577]: "|"
+        - generic [ref=e578] [cursor=pointer]: 使用指南
+        - generic [ref=e579]: "|"
+        - generic [ref=e580] [cursor=pointer]: 关于我们
+  - alert [ref=e581]:
+    - img [ref=e583]
+    - paragraph [ref=e585]: 服务器内部错误，请稍后再试
+  - alert [ref=e586]:
+    - img [ref=e588]
+    - paragraph [ref=e590]: 服务器内部错误，请稍后再试
+  - iframe [ref=e591]:
+    - generic [ref=f1e2]:
+      - generic [ref=f1e3]: "Compiled with problems:"
+      - button "Dismiss" [ref=f1e4] [cursor=pointer]: ×
+      - generic [ref=f1e5]:
+        - generic [ref=f1e6]:
+          - generic [ref=f1e7] [cursor=pointer]: ERROR in ./src/components/analysis/AnalysisDetailDialog.vue
+          - generic [ref=f1e8]: "Module Error (from ./node_modules/vue-loader/dist/index.js): VueCompilerError: Element is missing end tag. at C:\\Users\\Joe\\SynologyDrive\\codes\\有声小说\\frontend\\src\\components\\analysis\\AnalysisDetailDialog.vue:8:5 6 | :close-on-click-modal=\"false\" 7 | > 8 | <div class=\"analysis-detail\" v-loading=\"loading\"> | ^ 9 | <div v-if=\"analysisData\" class=\"detail-content\"> 10 | <!-- 分析状态概览 -->"
+        - generic [ref=f1e9]:
+          - generic [ref=f1e10] [cursor=pointer]: ERROR in ./src/components/analysis/AnalysisDetailDialog.vue
+          - generic [ref=f1e11]: "Module Error (from ./node_modules/vue-loader/dist/index.js): VueCompilerError: Invalid end tag. at C:\\Users\\Joe\\SynologyDrive\\codes\\有声小说\\frontend\\src\\components\\analysis\\AnalysisDetailDialog.vue:172:13 170| </div> 171| </div> 172| </el-card> | ^ 173| </div> 174| </div>"
+        - generic [ref=f1e12]:
+          - generic [ref=f1e13] [cursor=pointer]: ERROR in ./src/components/analysis/ScriptPreviewDialog.vue
+          - generic [ref=f1e14]: "Module Error (from ./node_modules/vue-loader/dist/index.js): VueCompilerError: Attribute name cannot contain U+0022 (\"), U+0027 ('), and U+003C (<). at C:\\Users\\Joe\\SynologyDrive\\codes\\有声小说\\frontend\\src\\components\\analysis\\ScriptPreviewDialog.vue:109:49 107| <el-table-column prop=\"segments\" label=\"段落数\" width=\"100\" /> 108| <el-table-column label=\"操作\" width=\"100\"> 109| <template #default=\"scope=\"{ row }\"> | ^ 110| <el-button size=\"small\" @click=\"highlightSegments(row.name)\"> 111| 高亮"
+        - generic [ref=f1e15]:
+          - generic [ref=f1e16] [cursor=pointer]: ERROR in ./src/components/analysis/ScriptPreviewDialog.vue
+          - generic [ref=f1e17]: "Module Error (from ./node_modules/vue-loader/dist/index.js): VueCompilerError: Element is missing end tag. at C:\\Users\\Joe\\SynologyDrive\\codes\\有声小说\\frontend\\src\\components\\analysis\\ScriptPreviewDialog.vue:16:13 14 | {{ scriptData.title }} 15 | </el-descriptions-item> 16 | <el-descriptions-item label=\"总段落数\"> | ^ 17 | {{ scriptData.totalSegments }} 18 | </elordinates-item>"
+        - generic [ref=f1e18]:
+          - generic [ref=f1e19] [cursor=pointer]: ERROR in ./src/components/analysis/ScriptPreviewDialog.vue
+          - generic [ref=f1e20]: "Module Error (from ./node_modules/vue-loader/dist/index.js): VueCompilerError: Error parsing JavaScript expression: Unexpected token (1:7) at C:\\Users\\Joe\\SynologyDrive\\codes\\有声小说\\frontend\\src\\components\\analysis\\ScriptPreviewDialog.vue:109:35 107| <el-table-column prop=\"segments\" label=\"段落数\" width=\"100\" /> 108| <el-table-column label=\"操作\" width=\"100\"> 109| <template #default=\"scope=\"{ row }\"> | ^ 110| <el-button size=\"small\" @click=\"highlightSegments(row.name)\"> 111| 高亮"
+        - generic [ref=f1e21]:
+          - generic [ref=f1e22] [cursor=pointer]: ERROR in ./src/components/analysis/ScriptPreviewDialog.vue
+          - generic [ref=f1e23]: "Module Error (from ./node_modules/vue-loader/dist/index.js): VueCompilerError: Invalid end tag. at C:\\Users\\Joe\\SynologyDrive\\codes\\有声小说\\frontend\\src\\components\\analysis\\ScriptPreviewDialog.vue:18:13 16 | <el-descriptions-item label=\"总段落数\"> 17 | {{ scriptData.totalSegments }} 18 | </elordinates-item> | ^ 19 | <el-descriptions-item label=\"总时长\"> 20 | {{ formatDuration(scriptData.totalDuration) }}"
+        - generic [ref=f1e24]:
+          - generic [ref=f1e25] [cursor=pointer]: ERROR in ./src/views/FileOutput.vue?vue&type=script&setup=true&lang=js (./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./src/views/FileOutput.vue?vue&type=script&setup=true&lang=js)
+          - generic [ref=f1e26]: "Module Error (from ./node_modules/vue-loader/dist/index.js): [vue/compiler-sfc] Identifier 'previewFile' has already been declared. (229:6) C:\\Users\\Joe\\SynologyDrive\\codes\\有声小说\\frontend\\src\\views\\FileOutput.vue 669| 670| // 预览文件 671| const previewFile = async (file) => { | ^ 672| previewFile.value = file 673|"
+        - generic [ref=f1e27]:
+          - generic [ref=f1e28] [cursor=pointer]: ERROR in ./src/views/FileOutput.vue?vue&type=script&setup=true&lang=js (./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./src/views/FileOutput.vue?vue&type=script&setup=true&lang=js)
+          - generic [ref=f1e29]: "Module build failed (from ./node_modules/vue-loader/dist/index.js): TypeError: Cannot read properties of null (reading 'content') at selectBlock (C:\\Users\\Joe\\SynologyDrive\\codes\\有声小说\\frontend\\node_modules\\vue-loader\\dist\\select.js:23:45) at Object.loader (C:\\Users\\Joe\\SynologyDrive\\codes\\有声小说\\frontend\\node_modules\\vue-loader\\dist\\index.js:93:41)"
+        - generic [ref=f1e30]:
+          - generic [ref=f1e31] [cursor=pointer]: ERROR in ./src/views/FileOutput.vue?vue&type=template&id=3ca608d7&scoped=true (./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./src/views/FileOutput.vue?vue&type=template&id=3ca608d7&scoped=true)
+          - generic [ref=f1e32]: "Module Error (from ./node_modules/vue-loader/dist/templateLoader.js): [vue/compiler-sfc] Identifier 'previewFile' has already been declared. (229:6) C:\\Users\\Joe\\SynologyDrive\\codes\\有声小说\\frontend\\src\\views\\FileOutput.vue 669| 670| // 预览文件 671| const previewFile = async (file) => { | ^ 672| previewFile.value = file 673|"
+        - generic [ref=f1e33]:
+          - generic [ref=f1e34]: ERROR
+          - generic [ref=f1e35]: "[eslint] No ESLint configuration found in C:\\Users\\Joe\\SynologyDrive\\codes\\有声小说\\frontend\\src\\views."
+  - alert [ref=e592]:
+    - img [ref=e594]
+    - paragraph [ref=e596]: 服务器内部错误，请稍后再试
+  - alert [ref=e597]:
+    - img [ref=e599]
+    - paragraph [ref=e601]: 服务器内部错误，请稍后再试
+  - alert [ref=e602]:
+    - img [ref=e604]
+    - paragraph [ref=e606]: 服务器内部错误，请稍后再试
+  - alert [ref=e607]:
+    - img [ref=e609]
+    - paragraph [ref=e611]: 服务器内部错误，请稍后再试
+  - alert [ref=e612]:
+    - img [ref=e614]
+    - paragraph [ref=e616]: API状态刷新成功
+```

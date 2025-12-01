@@ -204,7 +204,7 @@
       </div>
     </div>
 
-    <template #footer>
+    <div class="dialog-footer">
       <el-button @click="handleClose">关闭</el-button>
       <el-button
         v-if="analysisData?.ttsScript"
@@ -213,7 +213,7 @@
       >
         查看脚本
       </el-button>
-    </template>
+    </div>
   </el-dialog>
 </template>
 

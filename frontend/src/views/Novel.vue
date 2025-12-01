@@ -112,7 +112,7 @@
 </template>
 
 <script>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Plus, Refresh } from '@element-plus/icons-vue'
 import { useNovelStore } from '../store/novel'
@@ -120,7 +120,7 @@ import CreateNovelDialog from '../components/novel/CreateNovelDialog.vue'
 import NovelEditorDialog from '../components/novel/NovelEditorDialog.vue'
 
 export default {
-  name: 'Novel',
+  name: 'NovelView',
   components: {
     Plus,
     Refresh,

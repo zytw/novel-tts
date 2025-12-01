@@ -74,29 +74,29 @@ api.interceptors.response.use(
 
     // 处理不同HTTP状态码
     switch (status) {
-      case 400:
-        ElMessage.error(data.error || '请求参数错误')
-        break
-      case 401:
-        ElMessage.error('身份验证失败，请重新登录')
-        // 清除token并跳转到登录页
-        localStorage.removeItem('auth_token')
-        // 这里可以添加路由跳转逻辑
-        break
-      case 403:
-        ElMessage.error('权限不足，无法访问该资源')
-        break
-      case 404:
-        ElMessage.error('请求的资源不存在')
-        break
-      case 429:
-        ElMessage.error('请求过于频繁，请稍后再试')
-        break
-      case 500:
-        ElMessage.error('服务器内部错误，请稍后再试')
-        break
-      default:
-        ElMessage.error(`请求失败 (${status})`)
+    case 400:
+      ElMessage.error(data.error || '请求参数错误')
+      break
+    case 401:
+      ElMessage.error('身份验证失败，请重新登录')
+      // 清除token并跳转到登录页
+      localStorage.removeItem('auth_token')
+      // 这里可以添加路由跳转逻辑
+      break
+    case 403:
+      ElMessage.error('权限不足，无法访问该资源')
+      break
+    case 404:
+      ElMessage.error('请求的资源不存在')
+      break
+    case 429:
+      ElMessage.error('请求过于频繁，请稍后再试')
+      break
+    case 500:
+      ElMessage.error('服务器内部错误，请稍后再试')
+      break
+    default:
+      ElMessage.error(`请求失败 (${status})`)
     }
 
     return Promise.reject(new APIError(
@@ -188,14 +188,15 @@ class APIService {
 
     if (parallel) {
       // 并行执行
+      let results = []
       try {
-        const results = await Promise.all(
+        results = await Promise.all(
           requests.map(req => this.api[req.method.toLowerCase()](req.url, req.data))
         )
         return results.map(res => res.data)
       } catch (error) {
         if (stopOnError) throw error
-        return results
+        return results.map(res => res.data)
       }
     } else {
       // 串行执行
@@ -361,19 +362,19 @@ export const FormatUtils = {
   dateTime: (dateString, format = 'full') => {
     const date = new Date(dateString)
     switch (format) {
-      case 'date':
-        return date.toLocaleDateString('zh-CN')
-      case 'time':
-        return date.toLocaleTimeString('zh-CN')
-      case 'short':
-        return date.toLocaleString('zh-CN', {
-          month: 'short',
-          day: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit'
-        })
-      default:
-        return date.toLocaleString('zh-CN')
+    case 'date':
+      return date.toLocaleDateString('zh-CN')
+    case 'time':
+      return date.toLocaleTimeString('zh-CN')
+    case 'short':
+      return date.toLocaleString('zh-CN', {
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      })
+    default:
+      return date.toLocaleString('zh-CN')
     }
   },
 

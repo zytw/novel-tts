@@ -110,7 +110,7 @@ import { useModelsStore } from '../store/models'
 import ModelDialog from '../components/ModelDialog.vue'
 
 export default {
-  name: 'Models',
+  name: 'ModelsView',
   components: {
     Plus,
     ModelDialog

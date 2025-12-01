@@ -9,7 +9,8 @@
       "mcp__context7__resolve-library-id",
       "mcp__context7__get-library-docs",
       "WebSearch",
-      "mcp__serena__get_symbols_overview"
+      "mcp__serena__get_symbols_overview",
+      "Skill(frontend-design)"
     ],
     "deny": [],
     "ask": []

@@ -319,10 +319,10 @@ export default {
 
     const getMethodTagType = (method) => {
       const types = {
-        'GET': 'success',
-        'POST': 'primary',
-        'PUT': 'warning',
-        'DELETE': 'danger'
+        GET: 'success',
+        POST: 'primary',
+        PUT: 'warning',
+        DELETE: 'danger'
       }
       return types[method] || 'info'
     }

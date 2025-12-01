@@ -13,7 +13,8 @@
         <el-button @click="testApi" type="success" icon="Connection">
           API 在线测试
         </el-button>
-        <el-button @click="refreshDocs" icon="Refresh" :loading="loading">
+        <el-button @click="refreshDocs" :loading="loading">
+          <el-icon class="ml-2"><Refresh /></el-icon>
           刷新文档
         </el-button>
       </div>
@@ -221,8 +222,6 @@ import { APIClient } from '../services/api'
 import {
   InfoFilled,
   List,
-  Download,
-  Connection,
   Refresh,
   ArrowDown
 } from '@element-plus/icons-vue'
@@ -232,8 +231,6 @@ export default {
   components: {
     InfoFilled,
     List,
-    Download,
-    Connection,
     Refresh,
     ArrowDown
   },
@@ -276,7 +273,7 @@ export default {
             expanded: false,
             parameters: [],
             responses: {
-              '200': {
+              200: {
                 description: '成功获取模型列表',
                 example: {
                   success: true,
@@ -305,7 +302,7 @@ export default {
               { name: 'apiKey', type: 'string', required: true, description: 'API密钥' }
             ],
             responses: {
-              '201': {
+              201: {
                 description: '模型创建成功',
                 example: {
                   success: true,
@@ -331,7 +328,7 @@ export default {
               { name: 'pageSize', type: 'number', required: false, description: '每页数量' }
             ],
             responses: {
-              '200': {
+              200: {
                 description: '成功获取小说列表',
                 example: {
                   success: true,
@@ -359,7 +356,7 @@ export default {
               { name: 'style', type: 'string', required: false, description: '写作风格' }
             ],
             responses: {
-              '200': {
+              200: {
                 description: '小说生成成功',
                 example: {
                   success: true,
@@ -390,7 +387,7 @@ export default {
               { name: 'analysisType', type: 'string', required: false, description: '分析类型' }
             ],
             responses: {
-              '200': {
+              200: {
                 description: '角色分析完成',
                 example: {
                   success: true,
@@ -427,7 +424,7 @@ export default {
               { name: 'voiceSettings', type: 'object', required: false, description: '语音设置' }
             ],
             responses: {
-              '200': {
+              200: {
                 description: '语音合成完成',
                 example: {
                   success: true,
@@ -457,7 +454,7 @@ export default {
               { name: 'format', type: 'string', required: false, description: '字幕格式 (srt/vtt)' }
             ],
             responses: {
-              '200': {
+              200: {
                 description: '字幕生成完成',
                 example: {
                   success: true,
@@ -487,7 +484,7 @@ export default {
               { name: 'formats', type: 'array', required: false, description: '导出格式' }
             ],
             responses: {
-              '200': {
+              200: {
                 description: '文件导出完成',
                 example: {
                   success: true,
@@ -513,11 +510,11 @@ export default {
 
     const getMethodTagType = (method) => {
       const types = {
-        'GET': 'success',
-        'POST': 'primary',
-        'PUT': 'warning',
-        'DELETE': 'danger',
-        'PATCH': 'info'
+        GET: 'success',
+        POST: 'primary',
+        PUT: 'warning',
+        DELETE: 'danger',
+        PATCH: 'info'
       }
       return types[method] || 'info'
     }
@@ -688,7 +685,7 @@ export default {
       testDialogVisible,
       testLoading,
       activeCategory,
-      testEndpoint,
+      testEndpoint: testEndpointAction,
       testParams,
       testResult,
       apiInfo,
@@ -699,7 +696,6 @@ export default {
       getMethodTagType,
       getStatusTagType,
       handleCategoryChange,
-      testEndpoint: testEndpointAction,
       executeTest,
       resetTest,
       copyEndpoint,

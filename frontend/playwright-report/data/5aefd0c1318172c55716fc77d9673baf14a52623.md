@@ -1,0 +1,427 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e10]:
+    - generic [ref=e13]:
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - img [ref=e18]
+          - heading "SoundStory AI" [level=1] [ref=e21]
+        - paragraph [ref=e22]: 声波叙事 · AI创作平台
+      - navigation [ref=e23]:
+        - link "🏠 首页" [ref=e24] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e25]: 🏠
+          - generic [ref=e26]: 首页
+        - link "🤖 模型配置" [ref=e28] [cursor=pointer]:
+          - /url: /models
+          - generic [ref=e29]: 🤖
+          - generic [ref=e30]: 模型配置
+        - link "✍️ 小说生成" [ref=e31] [cursor=pointer]:
+          - /url: /novel
+          - generic [ref=e32]: ✍️
+          - generic [ref=e33]: 小说生成
+        - link "🎭 角色分析" [ref=e34] [cursor=pointer]:
+          - /url: /analysis
+          - generic [ref=e35]: 🎭
+          - generic [ref=e36]: 角色分析
+        - link "🎙️ 语音合成" [ref=e37] [cursor=pointer]:
+          - /url: /tts
+          - generic [ref=e38]: 🎙️
+          - generic [ref=e39]: 语音合成
+        - link "📝 字幕生成" [ref=e40] [cursor=pointer]:
+          - /url: /subtitle
+          - generic [ref=e41]: 📝
+          - generic [ref=e42]: 字幕生成
+        - link "📦 文件输出" [ref=e43] [cursor=pointer]:
+          - /url: /output
+          - generic [ref=e44]: 📦
+          - generic [ref=e45]: 文件输出
+    - main [ref=e46]:
+      - generic [ref=e48]:
+        - generic [ref=e73]:
+          - generic [ref=e74]:
+            - generic [ref=e76]: 🔥 全新 AI 体验
+            - heading "SoundStory AI" [level=1] [ref=e77]:
+              - generic [ref=e78]: SoundStory
+              - generic [ref=e79]: AI
+            - paragraph [ref=e80]: 声波叙事 · 让每一个故事都有独特的声音
+            - paragraph [ref=e81]:
+              - text: 融合尖端AI技术，打造从文字到声音的完整创作链路
+              - text: 为你的故事注入灵魂，让角色真正"活"起来
+            - generic [ref=e82]:
+              - button "✨ 开始创作" [ref=e83] [cursor=pointer]:
+                - generic [ref=e84]: ✨
+                - generic [ref=e85]: 开始创作
+              - button "⚙️ 配置模型" [ref=e87] [cursor=pointer]:
+                - generic [ref=e88]: ⚙️
+                - generic [ref=e89]: 配置模型
+          - img [ref=e97]
+        - generic [ref=e106]:
+          - generic [ref=e107]:
+            - generic [ref=e108]: 🤖
+            - generic [ref=e109]:
+              - generic [ref=e110]: "0"
+              - generic [ref=e111]: 可用AI模型
+          - generic [ref=e113]:
+            - generic [ref=e114]: 📚
+            - generic [ref=e115]:
+              - generic [ref=e116]: "0"
+              - generic [ref=e117]: 创作小说
+          - generic [ref=e119]:
+            - generic [ref=e120]: 🎵
+            - generic [ref=e121]:
+              - generic [ref=e122]: "0"
+              - generic [ref=e123]: 生成音频
+          - generic [ref=e125]:
+            - generic [ref=e126]: 📦
+            - generic [ref=e127]:
+              - generic [ref=e128]: "0"
+              - generic [ref=e129]: 导出文件
+        - generic [ref=e131]:
+          - generic [ref=e132]:
+            - generic [ref=e133]: 核心功能
+            - heading "完整创作链路" [level=2] [ref=e134]
+            - paragraph [ref=e135]: 从灵感到成品，一站式AI小说创作解决方案
+          - generic [ref=e136]:
+            - generic [ref=e140] [cursor=pointer]:
+              - generic [ref=e142]: ⚙️
+              - heading "AI模型配置" [level=3] [ref=e143]
+              - paragraph [ref=e144]: 支持GPT、Claude、本地大模型等多种AI引擎，自由配置参数获得最佳创作效果
+              - generic [ref=e145]:
+                - generic [ref=e146]: 立即体验
+                - generic [ref=e147]: →
+            - generic [ref=e151] [cursor=pointer]:
+              - generic [ref=e153]: ✍️
+              - heading "智能小说创作" [level=3] [ref=e154]
+              - paragraph [ref=e155]: 基于深度学习的创意写作引擎，自动生成情节、对话和角色发展
+              - generic [ref=e156]:
+                - generic [ref=e157]: 立即体验
+                - generic [ref=e158]: →
+            - generic [ref=e162] [cursor=pointer]:
+              - generic [ref=e164]: 🎭
+              - heading "角色智能分析" [level=3] [ref=e165]
+              - paragraph [ref=e166]: AI驱动的角色性格分析，为每个角色匹配最合适的音色和语调
+              - generic [ref=e167]:
+                - generic [ref=e168]: 立即体验
+                - generic [ref=e169]: →
+            - generic [ref=e173] [cursor=pointer]:
+              - generic [ref=e175]: 🎙️
+              - heading "专业语音合成" [level=3] [ref=e176]
+              - paragraph [ref=e177]: 集成INDEX-TTS2引擎，支持情感化语音合成和多角色声音定制
+              - generic [ref=e178]:
+                - generic [ref=e179]: 立即体验
+                - generic [ref=e180]: →
+            - generic [ref=e184] [cursor=pointer]:
+              - generic [ref=e186]: 📝
+              - heading "智能字幕生成" [level=3] [ref=e187]
+              - paragraph [ref=e188]: 自动生成精确的时间轴字幕，支持多种格式和样式自定义
+              - generic [ref=e189]:
+                - generic [ref=e190]: 立即体验
+                - generic [ref=e191]: →
+            - generic [ref=e195] [cursor=pointer]:
+              - generic [ref=e197]: 📦
+              - heading "批量文件输出" [level=3] [ref=e198]
+              - paragraph [ref=e199]: 一键导出音频、文本、字幕等完整资源，支持云端存储和本地下载
+              - generic [ref=e200]:
+                - generic [ref=e201]: 立即体验
+                - generic [ref=e202]: →
+        - generic [ref=e203]:
+          - generic [ref=e204]:
+            - generic [ref=e205]: 创作流程
+            - heading "五步成章" [level=2] [ref=e206]
+            - paragraph [ref=e207]: 简单几步，完成从文字到声音的神奇转换
+          - generic [ref=e209]:
+            - generic [ref=e210]:
+              - generic [ref=e211]: "1"
+              - generic [ref=e212]:
+                - generic [ref=e213]: ⚙️
+                - heading "配置AI模型" [level=3] [ref=e214]
+                - paragraph [ref=e215]: 选择合适的AI引擎，配置创作参数和风格设置
+            - generic [ref=e216]:
+              - generic [ref=e217]: "2"
+              - generic [ref=e218]:
+                - generic [ref=e219]: ✍️
+                - heading "创作小说内容" [level=3] [ref=e220]
+                - paragraph [ref=e221]: 输入创意或大纲，AI自动生成完整的小说章节
+            - generic [ref=e222]:
+              - generic [ref=e223]: "3"
+              - generic [ref=e224]:
+                - generic [ref=e225]: 🎭
+                - heading "角色分析" [level=3] [ref=e226]
+                - paragraph [ref=e227]: 智能分析角色性格，匹配个性化语音特征
+            - generic [ref=e228]:
+              - generic [ref=e229]: "4"
+              - generic [ref=e230]:
+                - generic [ref=e231]: 🎙️
+                - heading "语音合成" [level=3] [ref=e232]
+                - paragraph [ref=e233]: 高质量TTS合成，为每个角色赋予独特声音
+            - generic [ref=e234]:
+              - generic [ref=e235]: "5"
+              - generic [ref=e236]:
+                - generic [ref=e237]: 📦
+                - heading "导出成品" [level=3] [ref=e238]
+                - paragraph [ref=e239]: 生成完整的音频小说和配套字幕文件
+        - generic [ref=e240]:
+          - generic [ref=e241]:
+            - generic [ref=e242]: 系统监控
+            - heading "实时状态" [level=2] [ref=e243]
+            - paragraph [ref=e244]: 确保您的创作过程顺畅无阻
+          - generic [ref=e247]:
+            - generic [ref=e249]:
+              - img [ref=e251]
+              - generic [ref=e253]: API 服务状态
+              - button "刷新" [ref=e254] [cursor=pointer]:
+                - generic [ref=e255]: 刷新
+            - generic [ref=e256]:
+              - alert [ref=e258]:
+                - img [ref=e260]
+                - generic [ref=e262]:
+                  - generic [ref=e263]: 服务异常
+                  - paragraph [ref=e264]: 所有API服务都可能存在问题
+              - separator [ref=e265]
+              - generic [ref=e266]:
+                - generic [ref=e267]:
+                  - generic [ref=e268]:
+                    - generic [ref=e269]:
+                      - img [ref=e271]
+                      - text: AI模型服务
+                    - generic [ref=e273]: /api/models
+                  - generic [ref=e276]: 异常
+                  - generic [ref=e277]:
+                    - generic [ref=e278]: 响应时间:0ms
+                    - generic [ref=e279]: 最后检查:20:06:03
+                - generic [ref=e280]:
+                  - generic [ref=e281]:
+                    - generic [ref=e282]:
+                      - img [ref=e284]
+                      - text: 小说生成
+                    - generic [ref=e286]: /api/novel
+                  - generic [ref=e289]: 异常
+                  - generic [ref=e290]:
+                    - generic [ref=e291]: 响应时间:0ms
+                    - generic [ref=e292]: 最后检查:20:06:03
+                - generic [ref=e293]:
+                  - generic [ref=e294]:
+                    - generic [ref=e295]:
+                      - img [ref=e297]
+                      - text: 角色分析
+                    - generic [ref=e299]: /api/analysis
+                  - generic [ref=e302]: 异常
+                  - generic [ref=e303]:
+                    - generic [ref=e304]: 响应时间:0ms
+                    - generic [ref=e305]: 最后检查:20:06:03
+                - generic [ref=e306]:
+                  - generic [ref=e307]:
+                    - generic [ref=e308]: 语音合成
+                    - generic [ref=e310]: /api/tts
+                  - generic [ref=e313]: 异常
+                  - generic [ref=e314]:
+                    - generic [ref=e315]: 响应时间:0ms
+                    - generic [ref=e316]: 最后检查:20:06:03
+                - generic [ref=e317]:
+                  - generic [ref=e318]:
+                    - generic [ref=e319]:
+                      - img [ref=e321]
+                      - text: 字幕生成
+                    - generic [ref=e323]: /api/subtitle
+                  - generic [ref=e326]: 异常
+                  - generic [ref=e327]:
+                    - generic [ref=e328]: 响应时间:0ms
+                    - generic [ref=e329]: 最后检查:20:06:03
+                - generic [ref=e330]:
+                  - generic [ref=e331]:
+                    - generic [ref=e332]:
+                      - img [ref=e334]
+                      - text: 文件输出
+                    - generic [ref=e336]: /api/file-output
+                  - generic [ref=e339]: 异常
+                  - generic [ref=e340]:
+                    - generic [ref=e341]: 响应时间:0ms
+                    - generic [ref=e342]: 最后检查:20:06:03
+              - separator [ref=e343]
+              - generic [ref=e344]:
+                - heading "API 统计信息" [level=4] [ref=e345]
+                - generic [ref=e346]:
+                  - generic [ref=e348]:
+                    - generic: "615"
+                    - generic: 总请求数
+                  - generic [ref=e350]:
+                    - generic: 89%
+                    - generic: 成功率
+                  - generic [ref=e352]:
+                    - generic: 103ms
+                    - generic: 平均响应
+                  - generic [ref=e354]:
+                    - generic: "67"
+                    - generic: 错误数
+              - separator [ref=e355]
+              - generic [ref=e356]:
+                - heading "最近请求" [level=4] [ref=e357]
+                - generic [ref=e359]:
+                  - table [ref=e361]:
+                    - rowgroup [ref=e368]:
+                      - row "方法 接口 状态 耗时 时间" [ref=e369]:
+                        - columnheader "方法" [ref=e370]:
+                          - generic [ref=e371]: 方法
+                        - columnheader "接口" [ref=e372]:
+                          - generic [ref=e373]: 接口
+                        - columnheader "状态" [ref=e374]:
+                          - generic [ref=e375]: 状态
+                        - columnheader "耗时" [ref=e376]:
+                          - generic [ref=e377]: 耗时
+                        - columnheader "时间" [ref=e378]:
+                          - generic [ref=e379]: 时间
+                  - table [ref=e384]:
+                    - rowgroup [ref=e391]:
+                      - row "POST /api/tts 200 447ms 20:06:01" [ref=e392]:
+                        - cell "POST" [ref=e393]:
+                          - generic [ref=e396]: POST
+                        - cell "/api/tts" [ref=e397]:
+                          - generic [ref=e398]: /api/tts
+                        - cell "200" [ref=e399]:
+                          - generic [ref=e402]: "200"
+                        - cell "447ms" [ref=e403]:
+                          - generic [ref=e404]: 447ms
+                        - cell "20:06:01" [ref=e405]:
+                          - generic [ref=e406]: 20:06:01
+                      - row "DELETE /api/novel 200 423ms 20:05:53" [ref=e407]:
+                        - cell "DELETE" [ref=e408]:
+                          - generic [ref=e411]: DELETE
+                        - cell "/api/novel" [ref=e412]:
+                          - generic [ref=e413]: /api/novel
+                        - cell "200" [ref=e414]:
+                          - generic [ref=e417]: "200"
+                        - cell "423ms" [ref=e418]:
+                          - generic [ref=e419]: 423ms
+                        - cell "20:05:53" [ref=e420]:
+                          - generic [ref=e421]: 20:05:53
+                      - row "PUT /api/file-output 200 252ms 20:05:42" [ref=e422]:
+                        - cell "PUT" [ref=e423]:
+                          - generic [ref=e426]: PUT
+                        - cell "/api/file-output" [ref=e427]:
+                          - generic [ref=e428]: /api/file-output
+                        - cell "200" [ref=e429]:
+                          - generic [ref=e432]: "200"
+                        - cell "252ms" [ref=e433]:
+                          - generic [ref=e434]: 252ms
+                        - cell "20:05:42" [ref=e435]:
+                          - generic [ref=e436]: 20:05:42
+                      - row "GET /api/novel 200 99ms 20:04:30" [ref=e437]:
+                        - cell "GET" [ref=e438]:
+                          - generic [ref=e441]: GET
+                        - cell "/api/novel" [ref=e442]:
+                          - generic [ref=e443]: /api/novel
+                        - cell "200" [ref=e444]:
+                          - generic [ref=e447]: "200"
+                        - cell "99ms" [ref=e448]:
+                          - generic [ref=e449]: 99ms
+                        - cell "20:04:30" [ref=e450]:
+                          - generic [ref=e451]: 20:04:30
+                      - row "PUT /api/file-output 200 499ms 20:04:17" [ref=e452]:
+                        - cell "PUT" [ref=e453]:
+                          - generic [ref=e456]: PUT
+                        - cell "/api/file-output" [ref=e457]:
+                          - generic [ref=e458]: /api/file-output
+                        - cell "200" [ref=e459]:
+                          - generic [ref=e462]: "200"
+                        - cell "499ms" [ref=e463]:
+                          - generic [ref=e464]: 499ms
+                        - cell "20:04:17" [ref=e465]:
+                          - generic [ref=e466]: 20:04:17
+                      - row "GET /api/models 200 505ms 20:03:13" [ref=e467]:
+                        - cell "GET" [ref=e468]:
+                          - generic [ref=e471]: GET
+                        - cell "/api/models" [ref=e472]:
+                          - generic [ref=e473]: /api/models
+                        - cell "200" [ref=e474]:
+                          - generic [ref=e477]: "200"
+                        - cell "505ms" [ref=e478]:
+                          - generic [ref=e479]: 505ms
+                        - cell "20:03:13" [ref=e480]:
+                          - generic [ref=e481]: 20:03:13
+                      - row "PUT /api/analysis 200 437ms 20:02:49" [ref=e482]:
+                        - cell "PUT" [ref=e483]:
+                          - generic [ref=e486]: PUT
+                        - cell "/api/analysis" [ref=e487]:
+                          - generic [ref=e488]: /api/analysis
+                        - cell "200" [ref=e489]:
+                          - generic [ref=e492]: "200"
+                        - cell "437ms" [ref=e493]:
+                          - generic [ref=e494]: 437ms
+                        - cell "20:02:49" [ref=e495]:
+                          - generic [ref=e496]: 20:02:49
+                      - row "DELETE /api/novel 200 474ms 20:02:39" [ref=e497]:
+                        - cell "DELETE" [ref=e498]:
+                          - generic [ref=e501]: DELETE
+                        - cell "/api/novel" [ref=e502]:
+                          - generic [ref=e503]: /api/novel
+                        - cell "200" [ref=e504]:
+                          - generic [ref=e507]: "200"
+                        - cell "474ms" [ref=e508]:
+                          - generic [ref=e509]: 474ms
+                        - cell "20:02:39" [ref=e510]:
+                          - generic [ref=e511]: 20:02:39
+                      - row "PUT /api/models 200 310ms 20:01:15" [ref=e512]:
+                        - cell "PUT" [ref=e513]:
+                          - generic [ref=e516]: PUT
+                        - cell "/api/models" [ref=e517]:
+                          - generic [ref=e518]: /api/models
+                        - cell "200" [ref=e519]:
+                          - generic [ref=e522]: "200"
+                        - cell "310ms" [ref=e523]:
+                          - generic [ref=e524]: 310ms
+                        - cell "20:01:15" [ref=e525]:
+                          - generic [ref=e526]: 20:01:15
+                      - row "POST /api/analysis 200 459ms 20:01:13" [ref=e527]:
+                        - cell "POST" [ref=e528]:
+                          - generic [ref=e531]: POST
+                        - cell "/api/analysis" [ref=e532]:
+                          - generic [ref=e533]: /api/analysis
+                        - cell "200" [ref=e534]:
+                          - generic [ref=e537]: "200"
+                        - cell "459ms" [ref=e538]:
+                          - generic [ref=e539]: 459ms
+                        - cell "20:01:13" [ref=e540]:
+                          - generic [ref=e541]: 20:01:13
+        - generic [ref=e543]:
+          - generic [ref=e544]:
+            - heading "准备好开始您的AI创作之旅了吗？" [level=2] [ref=e545]
+            - paragraph [ref=e546]: 加入数万名创作者，体验前所未有的小说创作方式
+          - generic [ref=e547]:
+            - button "立即开始" [ref=e548] [cursor=pointer]: 立即开始
+            - button "查看文档" [ref=e549] [cursor=pointer]
+    - generic [ref=e554]:
+      - generic [ref=e555]:
+        - paragraph [ref=e556]: © 2025 SoundStory AI - 声波叙事平台
+        - paragraph [ref=e557]: 让每一个故事都有独特的声音
+      - generic [ref=e558]:
+        - generic [ref=e559] [cursor=pointer]: API文档
+        - generic [ref=e560]: "|"
+        - generic [ref=e561] [cursor=pointer]: 使用指南
+        - generic [ref=e562]: "|"
+        - generic [ref=e563] [cursor=pointer]: 关于我们
+  - iframe [ref=e564]
+  - alert [ref=e565]:
+    - img [ref=e567]
+    - paragraph [ref=e569]: 服务器内部错误，请稍后再试
+  - alert [ref=e570]:
+    - img [ref=e572]
+    - paragraph [ref=e574]: 服务器内部错误，请稍后再试
+  - alert [ref=e575]:
+    - img [ref=e577]
+    - paragraph [ref=e579]: 服务器内部错误，请稍后再试
+  - alert [ref=e580]:
+    - img [ref=e582]
+    - paragraph [ref=e584]: 服务器内部错误，请稍后再试
+  - alert [ref=e585]:
+    - img [ref=e587]
+    - paragraph [ref=e589]: 服务器内部错误，请稍后再试
+  - alert [ref=e590]:
+    - img [ref=e592]
+    - paragraph [ref=e594]: 服务器内部错误，请稍后再试
+  - alert [ref=e595]:
+    - img [ref=e597]
+    - paragraph [ref=e599]: API状态刷新成功
+```
