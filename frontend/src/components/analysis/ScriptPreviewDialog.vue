@@ -15,7 +15,7 @@
             </el-descriptions-item>
             <el-descriptions-item label="总段落数">
               {{ scriptData.totalSegments }}
-            </elordinates-item>
+            </el-descriptions-item>
             <el-descriptions-item label="总时长">
               {{ formatDuration(scriptData.totalDuration) }}
             </el-descriptions-item>
