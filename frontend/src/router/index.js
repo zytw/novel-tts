@@ -40,6 +40,11 @@ const routes = [
     path: '/subtitle',
     name: 'Subtitle',
     component: () => import('../views/Subtitle.vue')
+  },
+  {
+    path: '/file-output',
+    name: 'FileOutput',
+    component: () => import('../views/FileOutput.vue')
   }
 ]
 

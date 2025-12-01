@@ -70,7 +70,7 @@
       "id": "file-output",
       "description": "多格式文件输出功能",
       "priority": 6,
-      "status": "failing",
+      "status": "passing",
       "acceptance": [
         "小说文本文件输出",
         "字幕文件输出",
