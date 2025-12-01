@@ -83,7 +83,7 @@
       "id": "frontend-backend-separation",
       "description": "前后端分离架构",
       "priority": 7,
-      "status": "failing",
+      "status": "passing",
       "acceptance": [
         "前后端代码分离",
         "API接口设计",

@@ -74,6 +74,11 @@
         </el-step>
       </el-steps>
     </div>
+
+    <div class="api-status-section">
+      <h2 class="section-title">系统状态</h2>
+      <ApiStatus />
+    </div>
   </div>
 </template>
 
@@ -81,6 +86,7 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useModelsStore } from '../store/models'
+import ApiStatus from '../components/ApiStatus.vue'
 import {
   Microphone,
   Setting,
@@ -96,6 +102,7 @@ import {
 export default {
   name: 'Home',
   components: {
+    ApiStatus,
     Microphone,
     Setting,
     EditPen,
@@ -291,5 +298,9 @@ export default {
   font-size: 12px;
   color: #909399;
   margin-top: 8px;
+}
+
+.api-status-section {
+  margin-top: 60px;
 }
 </style>

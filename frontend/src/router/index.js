@@ -45,6 +45,11 @@ const routes = [
     path: '/file-output',
     name: 'FileOutput',
     component: () => import('../views/FileOutput.vue')
+  },
+  {
+    path: '/api-docs',
+    name: 'ApiDocs',
+    component: () => import('../views/ApiDocs.vue')
   }
 ]
 
