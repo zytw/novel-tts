@@ -58,7 +58,7 @@
       "id": "subtitle-generation",
       "description": "SRT字幕文件生成",
       "priority": 5,
-      "status": "failing",
+      "status": "passing",
       "acceptance": [
         "同步生成SRT字幕文件",
         "字幕与音频时间轴匹配",

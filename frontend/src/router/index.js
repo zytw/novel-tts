@@ -35,6 +35,11 @@ const routes = [
     path: '/tts',
     name: 'TTS',
     component: () => import('../views/TTS.vue')
+  },
+  {
+    path: '/subtitle',
+    name: 'Subtitle',
+    component: () => import('../views/Subtitle.vue')
   }
 ]
 

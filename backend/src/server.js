@@ -7,6 +7,7 @@ const modelsRouter = require('../routes/models');
 const novelRouter = require('../routes/novel');
 const analysisRouter = require('../routes/analysis');
 const ttsRouter = require('../routes/tts');
+const subtitleRouter = require('../routes/subtitle');
 const { errorHandler } = require('../middleware/errorHandler');
 
 const app = express();
@@ -23,6 +24,7 @@ app.use('/api/models', modelsRouter);
 app.use('/api/novel', novelRouter);
 app.use('/api/analysis', analysisRouter);
 app.use('/api/tts', ttsRouter);
+app.use('/api/subtitle', subtitleRouter);
 
 // 健康检查
 app.get('/health', (req, res) => {
