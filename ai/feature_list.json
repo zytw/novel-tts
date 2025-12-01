@@ -46,7 +46,7 @@
       "id": "tts-integration",
       "description": "INDEX-TTS2语音合成集成",
       "priority": 4,
-      "status": "failing",
+      "status": "passing",
       "acceptance": [
         "集成INDEX-TTS2项目功能",
         "根据角色选择不同音色",
