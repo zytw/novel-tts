@@ -96,7 +96,7 @@
       "id": "docker-deployment",
       "description": "Docker容器化部署",
       "priority": 8,
-      "status": "failing",
+      "status": "passing",
       "acceptance": [
         "Dockerfile配置",
         "docker-compose配置",
