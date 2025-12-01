@@ -4,6 +4,7 @@ const helmet = require('helmet');
 require('dotenv').config();
 
 const modelsRouter = require('../routes/models');
+const novelRouter = require('../routes/novel');
 const { errorHandler } = require('../middleware/errorHandler');
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // 路由
 app.use('/api/models', modelsRouter);
+app.use('/api/novel', novelRouter);
 
 // 健康检查
 app.get('/health', (req, res) => {

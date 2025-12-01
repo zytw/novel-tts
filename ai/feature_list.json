@@ -22,7 +22,7 @@
       "id": "novel-generation",
       "description": "AI小说生成功能",
       "priority": 2,
-      "status": "failing",
+      "status": "passing",
       "acceptance": [
         "使用项目prompts目录下的小说生成模板",
         "AI生成小说内容",
