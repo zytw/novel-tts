@@ -1,0 +1,108 @@
+{
+  "metadata": {
+    "project": "有声小说",
+    "description": "创作爆款AI小说并生成有声小说的Web应用",
+    "created": "2025-12-01",
+    "version": "1.0.0"
+  },
+  "features": [
+    {
+      "id": "setup-ai-models",
+      "description": "配置主流AI模型选择功能",
+      "priority": 1,
+      "status": "passing",
+      "acceptance": [
+        "支持多种主流AI模型配置",
+        "前端可自由选择AI模型",
+        "模型配置可动态更新"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "novel-generation",
+      "description": "AI小说生成功能",
+      "priority": 2,
+      "status": "failing",
+      "acceptance": [
+        "使用项目prompts目录下的小说生成模板",
+        "AI生成小说内容",
+        "支持小说内容修改和确认"
+      ],
+      "dependencies": ["setup-ai-models"]
+    },
+    {
+      "id": "novel-analysis",
+      "description": "小说角色分析功能",
+      "priority": 3,
+      "status": "failing",
+      "acceptance": [
+        "AI分析小说文本并识别角色",
+        "为每个角色分配不同的音色和语气",
+        "生成叙述人脚本"
+      ],
+      "dependencies": ["novel-generation"]
+    },
+    {
+      "id": "tts-integration",
+      "description": "INDEX-TTS2语音合成集成",
+      "priority": 4,
+      "status": "failing",
+      "acceptance": [
+        "集成INDEX-TTS2项目功能",
+        "根据角色选择不同音色",
+        "分段生成语音并组合输出音频文件"
+      ],
+      "dependencies": ["novel-analysis"]
+    },
+    {
+      "id": "subtitle-generation",
+      "description": "SRT字幕文件生成",
+      "priority": 5,
+      "status": "failing",
+      "acceptance": [
+        "同步生成SRT字幕文件",
+        "字幕与音频时间轴匹配",
+        "支持中文字符编码"
+      ],
+      "dependencies": ["tts-integration"]
+    },
+    {
+      "id": "file-output",
+      "description": "多格式文件输出功能",
+      "priority": 6,
+      "status": "failing",
+      "acceptance": [
+        "小说文本文件输出",
+        "字幕文件输出",
+        "音频文件输出",
+        "文件管理和下载功能"
+      ],
+      "dependencies": ["subtitle-generation"]
+    },
+    {
+      "id": "frontend-backend-separation",
+      "description": "前后端分离架构",
+      "priority": 7,
+      "status": "failing",
+      "acceptance": [
+        "前后端代码分离",
+        "API接口设计",
+        "前端用户界面",
+        "Docker部署支持"
+      ],
+      "dependencies": []
+    },
+    {
+      "id": "docker-deployment",
+      "description": "Docker容器化部署",
+      "priority": 8,
+      "status": "failing",
+      "acceptance": [
+        "Dockerfile配置",
+        "docker-compose配置",
+        "生产环境部署配置"
+      ],
+      "dependencies": ["frontend-backend-separation"]
+    }
+  ]
+}

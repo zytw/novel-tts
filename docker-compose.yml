@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  # 后端API服务
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ai-novel-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
+    volumes:
+      - ./ai-models.json:/app/ai-models.json
+      - ./backend/logs:/app/logs
+    restart: unless-stopped
+    networks:
+      - ai-novel-network
+
+  # 前端Web服务
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: ai-novel-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - ai-novel-network
+
+  # Redis缓存服务 (可选)
+  redis:
+    image: redis:7-alpine
+    container_name: ai-novel-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    networks:
+      - ai-novel-network
+    command: redis-server --appendonly yes
+
+volumes:
+  redis_data:
+
+networks:
+  ai-novel-network:
+    driver: bridge
