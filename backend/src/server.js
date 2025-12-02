@@ -14,7 +14,7 @@ const apiDocsRouter = require('../routes/api-docs');
 const { errorHandler } = require('../middleware/errorHandler');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 // 获取环境配置
 const envConfig = APIConfig.getEnvironmentConfig();

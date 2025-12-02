@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require('uuid')
 class NovelService {
   constructor() {
     this.aiService = new AIService()
-    this.novelsDir = path.join(__dirname, '../../../data/novels')
+    this.novelsDir = path.join(process.cwd(), 'data/novels')
     this.ensureDirectories()
   }
 

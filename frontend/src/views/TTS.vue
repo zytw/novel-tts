@@ -80,7 +80,85 @@
             </el-option>
           </el-select>
         </el-form-item>
+
+        <el-form-item v-if="selectedNovel.id && novelAudioStatus">
+          <div class="novel-audio-status">
+            <span class="status-label">音频状态: </span>
+            <el-tag :type="getAudioStatusTag(novelAudioStatus.audioStatus)">
+              {{ getAudioStatusText(novelAudioStatus.audioStatus) }}
+            </el-tag>
+            <span v-if="novelAudioStatus.audioGeneration" class="audio-info">
+              时长: {{ formatDuration(novelAudioStatus.audioGeneration.duration) }}
+              格式: {{ novelAudioStatus.audioGeneration.format }}
+            </span>
+          </div>
+        </el-form-item>
       </el-form>
+    </el-card>
+
+    <!-- 快速操作 -->
+    <el-card v-if="selectedNovel.id" class="quick-actions">
+      <template #header>
+        <span>快速操作</span>
+      </template>
+
+      <div class="action-buttons">
+        <div class="generation-options">
+          <el-checkbox v-model="generateSubtitles" label="同步生成SRT字幕" />
+          <el-select v-if="generateSubtitles" v-model="subtitleFormat" placeholder="字幕格式" size="small" style="width: 120px; margin-left: 10px;">
+            <el-option label="SRT" value="srt" />
+            <el-option label="VTT" value="vtt" />
+            <el-option label="两种格式" value="both" />
+          </el-select>
+        </div>
+
+        <el-button
+          type="success"
+          size="large"
+          @click="generateCompleteNovelAudio"
+          :loading="generatingComplete"
+          :disabled="!canGenerateComplete"
+        >
+          <el-icon><VideoPlay /></el-icon>
+          {{ generateSubtitles ? '生成音频和字幕' : '生成完整小说音频' }}
+        </el-button>
+
+        <el-button
+          v-if="novelAudioStatus && novelAudioStatus.audioStatus === 'completed'"
+          @click="downloadCompleteAudio"
+        >
+          <el-icon><Download /></el-icon>
+          下载完整音频
+        </el-button>
+
+        <el-button
+          v-if="novelAudioStatus && novelAudioStatus.audioStatus === 'completed'"
+          @click="playCompleteAudio"
+        >
+          <el-icon><Headset /></el-icon>
+          播放完整音频
+        </el-button>
+
+        <el-button
+          v-if="subtitleResult && subtitleResult.srtFile"
+          @click="downloadSubtitles"
+          type="primary"
+          plain
+        >
+          <el-icon><Document /></el-icon>
+          下载字幕文件
+        </el-button>
+
+        <el-button
+          v-if="subtitleResult && subtitleResult.srtFile"
+          @click="viewSubtitles"
+          type="info"
+          plain
+        >
+          <el-icon><View /></el-icon>
+          查看字幕
+        </el-button>
+      </div>
     </el-card>
 
     <!-- TTS控制面板 -->
@@ -288,7 +366,7 @@
           v-if="audioHistory.length"
           @click="showAudioDialog = true"
         >
-          <el-icon><Headphones /></el-icon>
+          <el-icon><Headset /></el-icon>
           查看音频
         </el-button>
       </div>
@@ -393,6 +471,56 @@
         <el-button @click="showAudioDialog = false">关闭</el-button>
       </template>
     </el-dialog>
+
+    <!-- 字幕预览对话框 -->
+    <el-dialog
+      v-model="showSubtitleDialog"
+      title="字幕预览"
+      width="90%"
+      top="2vh"
+    >
+      <div class="subtitle-preview" v-if="subtitleContent">
+        <div class="preview-controls">
+          <el-select v-model="previewFormat" @change="loadSubtitleContent" size="small" style="width: 100px;">
+            <el-option label="SRT" value="srt" />
+            <el-option label="VTT" value="vtt" />
+          </el-select>
+          <el-button @click="copySubtitleContent" size="small" type="primary" plain>
+            <el-icon><DocumentCopy /></el-icon>
+            复制内容
+          </el-button>
+          <el-button @click="downloadCurrentSubtitle" size="small">
+            <el-icon><Download /></el-icon>
+            下载当前格式
+          </el-button>
+        </div>
+
+        <div class="subtitle-content">
+          <pre>{{ subtitleContent }}</pre>
+        </div>
+
+        <div class="subtitle-info" v-if="subtitleResult">
+          <el-descriptions title="字幕信息" :column="2" border size="small">
+            <el-descriptions-item label="文件格式">{{ previewFormat.toUpperCase() }}</el-descriptions-item>
+            <el-descriptions-item label="段落数量">{{ subtitleResult.segmentsCount || 0 }}</el-descriptions-item>
+            <el-descriptions-item label="总时长">{{ formatDuration(subtitleResult.totalDuration || 0) }}</el-descriptions-item>
+            <el-descriptions-item label="文件大小">{{ formatFileSize(subtitleResult.fileSize || 0) }}</el-descriptions-item>
+            <el-descriptions-item label="同步准确性" :span="2">
+              <el-tag :type="subtitleValidation?.isAccurate ? 'success' : 'warning'">
+                {{ subtitleValidation?.isAccurate ? '精确同步' : '可能存在偏差' }}
+              </el-tag>
+              <span v-if="subtitleValidation?.statistics?.issues" style="margin-left: 10px;">
+                发现 {{ subtitleValidation.statistics.issues }} 个时间轴问题
+              </span>
+            </el-descriptions-item>
+          </el-descriptions>
+        </div>
+      </div>
+
+      <template #footer>
+        <el-button @click="showSubtitleDialog = false">关闭</el-button>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -403,7 +531,7 @@ import {
   Setting,
   Refresh,
   Microphone,
-  Headphones,
+  Headset,
   VideoPlay,
   Download,
   Delete
@@ -417,7 +545,7 @@ export default {
     Setting,
     Refresh,
     Microphone,
-    Headphones,
+    Headset,
     VideoPlay,
     Download,
     Delete
@@ -430,13 +558,24 @@ export default {
     const loading = ref(false)
     const initializing = ref(false)
     const generating = ref(false)
+    const generatingComplete = ref(false)
     const showSettingsDialog = ref(false)
     const showAudioDialog = ref(false)
+    const showSubtitleDialog = ref(false)
+
+    // 字幕相关状态
+    const generateSubtitles = ref(true)
+    const subtitleFormat = ref('srt')
+    const previewFormat = ref('srt')
+    const subtitleResult = ref(null)
+    const subtitleContent = ref('')
+    const subtitleValidation = ref(null)
 
     const selectedNovel = ref({ id: '', title: '' })
     const segments = ref([])
     const selectedSegments = ref([])
     const characters = ref([])
+    const novelAudioStatus = ref(null)
     const voiceConfig = ref({
       narrator: {
         tone: 'neutral',
@@ -491,6 +630,13 @@ export default {
              !generating.value
     })
 
+    const canGenerateComplete = computed(() => {
+      return selectedNovel.value.id &&
+             ttsStatus.value.initialized &&
+             !generating.value &&
+             !generatingComplete.value
+    })
+
     // 方法
     const initializeTTS = async () => {
       initializing.value = true
@@ -534,6 +680,7 @@ export default {
         segments.value = []
         selectedSegments.value = []
         characters.value = []
+        novelAudioStatus.value = null
         return
       }
 
@@ -561,6 +708,9 @@ export default {
           if (analysis.voiceConfiguration) {
             loadVoiceConfig(analysis.voiceConfiguration)
           }
+
+          // 获取小说音频状态
+          await loadNovelAudioStatus(novelId)
 
           // 加载音频历史
           await loadAudioHistory(novelId)
@@ -611,6 +761,18 @@ export default {
         }
       } catch (error) {
         console.error('加载音频历史失败:', error)
+      }
+    }
+
+    const loadNovelAudioStatus = async (novelId) => {
+      try {
+        const response = await fetch(`/api/analysis/novels/${novelId}/analysis`)
+        const result = await response.json()
+        if (result.success && result.data.novel) {
+          novelAudioStatus.value = result.data.novel
+        }
+      } catch (error) {
+        console.error('加载小说音频状态失败:', error)
       }
     }
 
@@ -764,6 +926,117 @@ export default {
       }
     }
 
+    const generateCompleteNovelAudio = async () => {
+      generatingComplete.value = true
+
+      try {
+        let response
+
+        if (generateSubtitles.value) {
+          // 使用同步生成音频和字幕的接口
+          response = await fetch(`/api/tts/generate-with-subtitles/${selectedNovel.value.id}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              ttsScript: novelAudioStatus.value?.ttsScript || await getTTSScript(),
+              subtitleOptions: {
+                outputFormat: subtitleFormat.value,
+                encoding: 'utf-8',
+                syncMode: 'accurate'
+              },
+              audioOptions: {
+                format: outputOptions.value.format,
+                quality: outputOptions.value.quality,
+                sampleRate: outputOptions.value.sampleRate
+              }
+            })
+          })
+        } else {
+          // 仅生成音频
+          response = await fetch(`/api/tts/generate-novel/${selectedNovel.value.id}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              options: {
+                format: outputOptions.value.format,
+                quality: outputOptions.value.quality,
+                sampleRate: outputOptions.value.sampleRate
+              }
+            })
+          })
+        }
+
+        const result = await response.json()
+        if (result.success) {
+          if (generateSubtitles.value) {
+            // 处理音频和字幕生成结果
+            const { audio, subtitles, synchronization } = result.data
+
+            ElMessage.success(`音频和字幕生成完成！音频时长: ${formatDuration(audio.duration)}, 同步准确性: ${synchronization.isAccurate ? '精确' : '有偏差'}`)
+
+            // 更新音频状态
+            novelAudioStatus.value = {
+              audioStatus: 'completed',
+              audioFile: audio.audioFile,
+              duration: audio.duration,
+              segments: audio.segments
+            }
+
+            // 保存字幕结果
+            subtitleResult.value = subtitles
+            subtitleValidation.value = synchronization
+
+            // 重新加载小说音频状态
+            await loadNovelAudioStatus(selectedNovel.value.id)
+
+            // 重新加载音频历史
+            await loadAudioHistory(selectedNovel.value.id)
+          } else {
+            // 仅音频生成结果
+            ElMessage.success(`完整小说音频生成完成！时长: ${formatDuration(result.data.duration)}`)
+
+            // 重新加载小说音频状态
+            await loadNovelAudioStatus(selectedNovel.value.id)
+
+            // 重新加载音频历史
+            await loadAudioHistory(selectedNovel.value.id)
+          }
+        } else {
+          ElMessage.error(result.error || '生成失败')
+        }
+      } catch (error) {
+        console.error('生成失败:', error)
+        ElMessage.error('生成失败，请检查网络连接')
+      } finally {
+        generatingComplete.value = false
+      }
+    }
+
+    const downloadCompleteAudio = () => {
+      if (novelAudioStatus.value && novelAudioStatus.value.audioGeneration) {
+        const audioFile = novelAudioStatus.value.audioGeneration.audioFile
+        const fileName = audioFile.split('/').pop() // Get basename
+        const fileExt = fileName.split('.').pop() // Get extension
+        const link = document.createElement('a')
+        link.href = `/api/tts/download/${fileName}`
+        link.download = `${selectedNovel.value.title}_完整音频.${fileExt}`
+        link.click()
+      }
+    }
+
+    const playCompleteAudio = () => {
+      if (novelAudioStatus.value && novelAudioStatus.value.audioGeneration) {
+        const audioFile = novelAudioStatus.value.audioGeneration.audioFile
+        const fileName = audioFile.split('/').pop() // Get basename
+        const audioPath = `/api/tts/download/${fileName}`
+        window.open(audioPath, '_blank')
+      }
+    }
+
     // 辅助函数
     const getSegmentTypeTag = (type) => {
       const typeMap = {
@@ -822,6 +1095,121 @@ export default {
       return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
     }
 
+    // 字幕相关方法
+    const getTTSScript = async () => {
+      try {
+        const response = await fetch(`/api/analysis/tts-script/${selectedNovel.value.id}`)
+        const result = await response.json()
+        return result.success ? result.data.ttsScript : null
+      } catch (error) {
+        console.error('获取TTS脚本失败:', error)
+        return null
+      }
+    }
+
+    const viewSubtitles = async () => {
+      if (!subtitleResult.value) return
+
+      showSubtitleDialog.value = true
+      await loadSubtitleContent()
+    }
+
+    const downloadSubtitles = () => {
+      if (!subtitleResult.value) return
+
+      const { srtFile, vttFile } = subtitleResult.value
+      const format = subtitleFormat.value
+
+      let downloadUrl, filename
+      if (format === 'srt' && srtFile) {
+        downloadUrl = `/api/subtitle/download/${srtFile.split('/').pop()}`
+        filename = `subtitles_${selectedNovel.value.id}.srt`
+      } else if (format === 'vtt' && vttFile) {
+        downloadUrl = `/api/subtitle/download/${vttFile.split('/').pop()}`
+        filename = `subtitles_${selectedNovel.value.id}.vtt`
+      } else {
+        ElMessage.error('当前格式的字幕文件不存在')
+        return
+      }
+
+      const link = document.createElement('a')
+      link.href = downloadUrl
+      link.download = filename
+      link.click()
+    }
+
+    const downloadCurrentSubtitle = () => {
+      if (!subtitleContent.value) return
+
+      const blob = new Blob([subtitleContent.value], {
+        type: previewFormat.value === 'srt' ? 'text/plain' : 'text/vtt'
+      })
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = `subtitles_${selectedNovel.value.id}.${previewFormat.value}`
+      link.click()
+      URL.revokeObjectURL(url)
+    }
+
+    const copySubtitleContent = async () => {
+      if (!subtitleContent.value) return
+
+      try {
+        await navigator.clipboard.writeText(subtitleContent.value)
+        ElMessage.success('字幕内容已复制到剪贴板')
+      } catch (error) {
+        console.error('复制失败:', error)
+        ElMessage.error('复制失败')
+      }
+    }
+
+    const loadSubtitleContent = async () => {
+      if (!subtitleResult.value) return
+
+      try {
+        const format = previewFormat.value
+        const filename = format === 'srt' ? subtitleResult.value.srtFile?.split('/').pop() : subtitleResult.value.vttFile?.split('/').pop()
+
+        if (!filename) {
+          ElMessage.error(`${format.toUpperCase()}格式字幕文件不存在`)
+          return
+        }
+
+        const response = await fetch(`/api/subtitle/content/${filename}`)
+        const result = await response.json()
+
+        if (result.success) {
+          subtitleContent.value = result.data.content
+        } else {
+          ElMessage.error('加载字幕内容失败')
+        }
+      } catch (error) {
+        console.error('加载字幕内容失败:', error)
+        ElMessage.error('加载字幕内容失败')
+      }
+    }
+
+    const getAudioStatusTag = (status) => {
+      const statusMap = {
+        not_started: 'info',
+        processing: 'warning',
+        completed: 'success',
+        failed: 'danger'
+      }
+      return statusMap[status] || 'info'
+    }
+
+    const getAudioStatusText = (status) => {
+      const textMap = {
+        not_started: '未开始',
+        processing: '处理中',
+        completed: '已完成',
+        failed: '生成失败'
+      }
+      return textMap[status] || status
+    }
+
     // 监听器
     watch(ttsSettings, (newSettings) => {
       // 设置变化时的处理
@@ -843,12 +1231,14 @@ export default {
       loading,
       initializing,
       generating,
+      generatingComplete,
       showSettingsDialog,
       showAudioDialog,
       selectedNovel,
       segments,
       selectedSegments,
       characters,
+      novelAudioStatus,
       voiceConfig,
       outputOptions,
       ttsStatus,
@@ -857,25 +1247,39 @@ export default {
       audioHistory,
       availableNovels,
       canGenerate,
+      canGenerateComplete,
       initializeTTS,
       checkTTSStatus,
       handleNovelChange,
+      loadNovelAudioStatus,
       selectAllSegments,
       clearSelection,
       handleSegmentSelection,
       generateSpeech,
+      generateCompleteNovelAudio,
       playAudio,
       downloadAudio,
       deleteAudio,
+      downloadCompleteAudio,
+      playCompleteAudio,
       saveSettings,
       getSegmentTypeTag,
       getSegmentTypeText,
       getCharacterName,
       getSegmentStatus,
       getSegmentStatusText,
+      getAudioStatusTag,
+      getAudioStatusText,
       formatDuration,
       formatDate,
-      formatFileSize
+      formatFileSize,
+      // 字幕相关方法
+      viewSubtitles,
+      downloadSubtitles,
+      downloadCurrentSubtitle,
+      copySubtitleContent,
+      loadSubtitleContent,
+      getTTSScript
     }
   }
 }
@@ -1151,5 +1555,84 @@ export default {
 .audio-actions {
   display: flex;
   gap: 8px;
+}
+
+.novel-audio-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+}
+
+.status-label {
+  font-weight: 500;
+  color: #606266;
+}
+
+.audio-info {
+  font-size: 12px;
+  color: #909399;
+}
+
+.quick-actions {
+  margin-bottom: 20px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.action-buttons .el-button {
+  margin: 4px;
+}
+
+.generation-options {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  gap: 16px;
+}
+
+.subtitle-preview {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.preview-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #ebeef5;
+}
+
+.subtitle-content {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 16px;
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 16px;
+}
+
+.subtitle-content pre {
+  margin: 0;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.subtitle-info {
+  margin-top: 16px;
 }
 </style>

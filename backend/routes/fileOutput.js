@@ -2,9 +2,11 @@ const express = require('express');
 const Joi = require('joi');
 const path = require('path');
 const FileOutputService = require('../src/services/fileOutputService');
+const EnhancedFileOutputService = require('../src/services/enhancedFileOutputService');
 
 const router = express.Router();
 const fileOutputService = new FileOutputService();
+const enhancedFileOutputService = new EnhancedFileOutputService();
 
 // 验证模式
 const generateNovelTextSchema = Joi.object({
@@ -543,6 +545,344 @@ router.get('/files/:filename/preview', async (req, res) => {
     res.status(500).json({
       success: false,
       error: '预览文件内容失败',
+      details: error.message
+    });
+  }
+});
+
+// 生成小说作品集
+router.post('/generate-collection', async (req, res) => {
+  try {
+    const collectionSchema = Joi.object({
+      novelData: Joi.object({
+        title: Joi.string().required(),
+        author: Joi.string().default(''),
+        description: Joi.string().default(''),
+        chapters: Joi.array().items(Joi.object({
+          title: Joi.string().default(''),
+          content: Joi.string().default('')
+        })).default([])
+      }).required(),
+      options: Joi.object({
+        formats: Joi.array().items(Joi.string().valid('txt', 'md', 'pdf', 'epub')).default(['txt', 'md']),
+        includeCover: Joi.boolean().default(false),
+        includeAudio: Joi.boolean().default(false),
+        includeSubtitles: Joi.boolean().default(false),
+        coverImage: Joi.string().optional(),
+        audioFiles: Joi.array().default([]),
+        subtitleFile: Joi.object().optional()
+      }).default({})
+    });
+
+    const { error, value } = collectionSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({
+        success: false,
+        error: '参数验证失败',
+        details: error.details
+      });
+    }
+
+    const { novelData, options } = value;
+    const result = await enhancedFileOutputService.generateNovelCollection(novelData, options);
+
+    res.json({
+      success: true,
+      message: '小说作品集生成完成',
+      data: result
+    });
+  } catch (error) {
+    console.error('生成小说作品集失败:', error);
+    res.status(500).json({
+      success: false,
+      error: '生成小说作品集失败',
+      details: error.message
+    });
+  }
+});
+
+// 创建多媒体包
+router.post('/create-multimedia-package', async (req, res) => {
+  try {
+    const multimediaSchema = Joi.object({
+      novelData: Joi.object({
+        title: Joi.string().required(),
+        author: Joi.string().default(''),
+        description: Joi.string().default(''),
+        chapters: Joi.array().items(Joi.object({
+          title: Joi.string().default(''),
+          content: Joi.string().default('')
+        })).default([])
+      }).required(),
+      mediaFiles: Joi.object({
+        text: Joi.array().items(Joi.object({
+          path: Joi.string().required(),
+          filename: Joi.string().required()
+        })).default([]),
+        audio: Joi.array().items(Joi.object({
+          path: Joi.string().required(),
+          filename: Joi.string().required(),
+          duration: Joi.number().optional()
+        })).default([]),
+        video: Joi.array().items(Joi.object({
+          path: Joi.string().required(),
+          filename: Joi.string().required()
+        })).default([])
+      }).default(),
+      options: Joi.object({
+        includeText: Joi.boolean().default(true),
+        includeMetadata: Joi.boolean().default(true),
+        quality: Joi.string().valid('low', 'medium', 'high').default('high'),
+        compressionLevel: Joi.number().integer().min(1).max(9).default(6),
+        formats: Joi.object({
+          text: Joi.array().items(Joi.string().valid('txt', 'md', 'pdf')).default(['txt']),
+          audio: Joi.string().valid('mp3', 'wav', 'aac', 'm4a').default('mp3'),
+          video: Joi.string().valid('mp4', 'avi', 'mkv').default('mp4')
+        }).default()
+      }).default({})
+    });
+
+    const { error, value } = multimediaSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({
+        success: false,
+        error: '参数验证失败',
+        details: error.details
+      });
+    }
+
+    const { novelData, mediaFiles, options } = value;
+    const result = await enhancedFileOutputService.createMultimediaPackage(novelData, mediaFiles, options);
+
+    res.json({
+      success: true,
+      message: '多媒体包创建完成',
+      data: result
+    });
+  } catch (error) {
+    console.error('创建多媒体包失败:', error);
+    res.status(500).json({
+      success: false,
+      error: '创建多媒体包失败',
+      details: error.message
+    });
+  }
+});
+
+// 异步文件生成
+router.post('/enqueue-generation', async (req, res) => {
+  try {
+    const jobSchema = Joi.object({
+      type: Joi.string().valid('novel_text', 'audio_package', 'multimedia_package').required(),
+      data: Joi.object().required(),
+      options: Joi.object().default({})
+    });
+
+    const { error, value } = jobSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({
+        success: false,
+        error: '参数验证失败',
+        details: error.details
+      });
+    }
+
+    const result = await enhancedFileOutputService.enqueueFileGeneration(value);
+
+    res.json({
+      success: true,
+      message: '文件生成作业已加入队列',
+      data: result
+    });
+  } catch (error) {
+    console.error('加入文件生成队列失败:', error);
+    res.status(500).json({
+      success: false,
+      error: '加入文件生成队列失败',
+      details: error.message
+    });
+  }
+});
+
+// 获取作业状态
+router.get('/jobs/:jobId', async (req, res) => {
+  try {
+    const { jobId } = req.params;
+    const result = await enhancedFileOutputService.getJobStatus(jobId);
+
+    res.json({
+      success: true,
+      data: result
+    });
+  } catch (error) {
+    console.error('获取作业状态失败:', error);
+    if (error.message.includes('不存在')) {
+      res.status(404).json({
+        success: false,
+        error: '作业不存在'
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        error: '获取作业状态失败',
+        details: error.message
+      });
+    }
+  }
+});
+
+// 获取作业队列状态
+router.get('/jobs/queue-status', async (req, res) => {
+  try {
+    const result = await enhancedFileOutputService.getJobQueueStatus();
+
+    res.json({
+      success: true,
+      data: result
+    });
+  } catch (error) {
+    console.error('获取作业队列状态失败:', error);
+    res.status(500).json({
+      success: false,
+      error: '获取作业队列状态失败',
+      details: error.message
+    });
+  }
+});
+
+// 导出文件
+router.post('/export', async (req, res) => {
+  try {
+    const exportSchema = Joi.object({
+      filenames: Joi.array().items(Joi.string()).required().min(1),
+      options: Joi.object({
+        destination: Joi.string().valid('local', 'cloud', 'ftp').default('local'),
+        format: Joi.string().valid('original', 'standardized', 'compressed').default('compressed'),
+        compression: Joi.boolean().default(true)
+      }).default({})
+    });
+
+    const { error, value } = exportSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({
+        success: false,
+        error: '参数验证失败',
+        details: error.details
+      });
+    }
+
+    const { filenames, options } = value;
+    const result = await enhancedFileOutputService.exportFiles(filenames, options);
+
+    if (result.exportType === 'compressed') {
+      // 下载ZIP文件
+      const filePath = result.path;
+
+      res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(result.filename)}"`);
+      res.setHeader('Content-Type', 'application/zip');
+
+      require('fs').createReadStream(filePath).pipe(res);
+    } else {
+      res.json({
+        success: true,
+        message: '文件导出成功',
+        data: result
+      });
+    }
+  } catch (error) {
+    console.error('导出文件失败:', error);
+    res.status(500).json({
+      success: false,
+      error: '导出文件失败',
+      details: error.message
+    });
+  }
+});
+
+// 验证文件完整性
+router.post('/verify-integrity', async (req, res) => {
+  try {
+    const { filenames } = req.body;
+
+    if (!filenames || !Array.isArray(filenames) || filenames.length === 0) {
+      return res.status(400).json({
+        success: false,
+        error: '请提供要验证的文件列表'
+      });
+    }
+
+    const verificationResults = [];
+
+    for (const filename of filenames) {
+      try {
+        const files = await fileOutputService.getOutputFiles();
+        const fileInfo = files.find(file => file.filename === filename);
+
+        if (!fileInfo) {
+          verificationResults.push({
+            filename,
+            exists: false,
+            integrity: false,
+            error: '文件不存在'
+          });
+          continue;
+        }
+
+        const filePath = path.join(process.cwd(), 'data', 'output', filename);
+        const fs = require('fs');
+
+        if (fs.existsSync(filePath)) {
+          const stats = fs.statSync(filePath);
+          const currentSize = stats.size;
+          const expectedSize = fileInfo.size;
+
+          verificationResults.push({
+            filename,
+            exists: true,
+            integrity: currentSize === expectedSize,
+            currentSize,
+            expectedSize,
+            lastModified: stats.mtime.toISOString()
+          });
+        } else {
+          verificationResults.push({
+            filename,
+            exists: false,
+            integrity: false,
+            error: '文件不存在'
+          });
+        }
+      } catch (error) {
+        verificationResults.push({
+          filename,
+          exists: false,
+          integrity: false,
+          error: error.message
+        });
+      }
+    }
+
+    const allValid = verificationResults.every(result => result.exists && result.integrity);
+
+    res.json({
+      success: true,
+      data: {
+        totalFiles: filenames.length,
+        validFiles: verificationResults.filter(r => r.exists && r.integrity).length,
+        invalidFiles: verificationResults.filter(r => !r.exists || !r.integrity).length,
+        allValid,
+        results: verificationResults
+      }
+    });
+  } catch (error) {
+    console.error('验证文件完整性失败:', error);
+    res.status(500).json({
+      success: false,
+      error: '验证文件完整性失败',
       details: error.message
     });
   }

@@ -1,12 +1,18 @@
 const AIService = require('./aiService')
 const PromptLoader = require('../utils/promptLoader')
 const NovelService = require('./novelService')
+const CharacterAnalyzer = require('../models/ai/characterAnalyzer')
+const VoiceMatcher = require('../models/ai/voiceMatcher')
+const TTSScriptGenerator = require('../models/ai/ttsScriptGenerator')
 
 class AnalysisService {
   constructor() {
     this.aiService = new AIService()
     this.promptLoader = new PromptLoader()
     this.novelService = new NovelService()
+    this.characterAnalyzer = new CharacterAnalyzer()
+    this.voiceMatcher = new VoiceMatcher()
+    this.ttsScriptGenerator = new TTSScriptGenerator()
   }
 
   /**
@@ -156,41 +162,24 @@ class AnalysisService {
    */
   async generateTTSScript(novelId, analysis, voiceConfig) {
     try {
+      console.log('开始生成TTS脚本...')
+
       const novel = await this.novelService.getNovelById(novelId)
       if (!novel) {
         throw new Error(`小说 ${novelId} 不存在`)
       }
 
-      // 分段处理文本
-      const textSegments = this.segmentText(novel.content)
+      // 使用智能TTS脚本生成器
+      const script = this.ttsScriptGenerator.generateTTSScript(novelId, novel, analysis, voiceConfig)
 
-      // 为每个段落分配角色和音色
-      const scriptSegments = textSegments.map((segment, index) => {
-        return {
-          id: `segment_${index}`,
-          text: segment.text,
-          type: segment.type, // 'dialogue' | 'narration' | 'monologue'
-          character: segment.character || 'narrator',
-          voiceProfile: this.getVoiceProfile(segment.character, voiceConfig),
-          timestamp: this.estimateTimestamp(segment, index),
-          emotion: this.detectEmotion(segment.text, segment.character, analysis),
-          duration: this.estimateDuration(segment.text)
-        }
-      })
+      console.log('TTS脚本生成完成，共', script.totalSegments, '个段落')
 
-      // 生成完整脚本
-      const script = {
-        novelId,
-        title: novel.title,
-        totalSegments: scriptSegments.length,
-        totalDuration: scriptSegments.reduce((sum, seg) => sum + seg.duration, 0),
-        characters: analysis.characters || [],
-        narrator: analysis.narrator || {},
-        voiceConfiguration: voiceConfig,
-        segments: scriptSegments,
-        metadata: {
-          generatedAt: new Date().toISOString(),
-          version: '1.0'
+      // 验证脚本
+      const validation = this.ttsScriptGenerator.validateScript(script)
+      if (!validation.isValid) {
+        console.warn('TTS脚本验证警告:', validation.warnings)
+        if (validation.errors.length > 0) {
+          throw new Error('TTS脚本验证失败: ' + validation.errors.join(', '))
         }
       }
 
@@ -252,6 +241,32 @@ ${characterInfo}${preferencesInfo}
    */
   async performCharacterAnalysis(model, prompt, novel) {
     try {
+      console.log('开始智能角色分析...')
+
+      // 使用智能角色分析器
+      const analysisResult = this.characterAnalyzer.analyzeCharacters(novel.content)
+
+      console.log('角色分析完成，识别到', analysisResult.characters.length, '个角色')
+
+      return {
+        success: true,
+        analysis: analysisResult
+      }
+
+    } catch (error) {
+      console.error('角色分析失败:', error)
+      // 如果智能分析失败，回退到AI模型调用
+      return await this.performAICharacterAnalysis(model, prompt, novel)
+    }
+  }
+
+  /**
+   * 使用AI模型执行角色分析（备用方案）
+   */
+  async performAICharacterAnalysis(model, prompt, novel) {
+    try {
+      console.log('使用AI模型进行角色分析...')
+
       // 模拟AI调用 - 在实际环境中这里会调用真实的AI API
       await new Promise(resolve => setTimeout(resolve, 2000 + Math.random() * 3000))
 
@@ -276,6 +291,32 @@ ${characterInfo}${preferencesInfo}
    */
   async performVoiceMatching(model, prompt, analysis) {
     try {
+      console.log('开始智能音色匹配...')
+
+      // 使用智能音色匹配器
+      const voiceConfiguration = this.voiceMatcher.generateVoiceConfiguration(analysis)
+
+      console.log('音色匹配完成')
+
+      return {
+        success: true,
+        configuration: voiceConfiguration
+      }
+
+    } catch (error) {
+      console.error('音色匹配失败:', error)
+      // 如果智能匹配失败，回退到AI模型调用
+      return await this.performAIVoiceMatching(model, prompt, analysis)
+    }
+  }
+
+  /**
+   * 使用AI模型执行音色匹配（备用方案）
+   */
+  async performAIVoiceMatching(model, prompt, analysis) {
+    try {
+      console.log('使用AI模型进行音色匹配...')
+
       // 模拟AI调用
       await new Promise(resolve => setTimeout(resolve, 1500 + Math.random() * 2000))
 

@@ -56,7 +56,7 @@
                 <span class="nav-text">字幕生成</span>
                 <div class="nav-indicator"></div>
               </router-link>
-              <router-link to="/output" class="nav-item" data-text="文件输出">
+              <router-link to="/file-output" class="nav-item" data-text="文件输出">
                 <span class="nav-icon">📦</span>
                 <span class="nav-text">文件输出</span>
                 <div class="nav-indicator"></div>

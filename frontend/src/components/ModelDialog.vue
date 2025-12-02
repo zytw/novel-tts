@@ -211,6 +211,24 @@ export default {
 
     const isEdit = computed(() => !!props.model)
 
+    // 重置表单
+    const resetForm = () => {
+      form.value = {
+        id: '',
+        name: '',
+        provider: '',
+        type: 'text-generation',
+        apiKey: '',
+        settings: {
+          temperature: 0.7,
+          maxTokens: 2048,
+          topP: 0.9,
+          frequencyPenalty: 0,
+          presencePenalty: 0
+        }
+      }
+    }
+
     // 监听model变化，更新表单数据
     watch(() => props.model, (newModel) => {
       if (newModel) {
@@ -232,24 +250,6 @@ export default {
         resetForm()
       }
     }, { immediate: true })
-
-    // 重置表单
-    const resetForm = () => {
-      form.value = {
-        id: '',
-        name: '',
-        provider: '',
-        type: 'text-generation',
-        apiKey: '',
-        settings: {
-          temperature: 0.7,
-          maxTokens: 2048,
-          topP: 0.9,
-          frequencyPenalty: 0,
-          presencePenalty: 0
-        }
-      }
-    }
 
     // 处理关闭
     const handleClose = () => {

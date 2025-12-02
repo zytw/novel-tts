@@ -170,7 +170,7 @@ class SubtitleService {
     let remainingText = text
 
     while (remainingText.length > 0) {
-      const maxLength = maxCharsPerLine * maxLinesPerSubtitle
+      const maxLength = Math.max(10, maxCharsPerLine * maxLinesPerSubtitle) // 确保最小长度为10
 
       if (remainingText.length <= maxLength) {
         blocks.push(remainingText)
@@ -181,7 +181,10 @@ class SubtitleService {
       const sentenceEndings = ['。', '！', '？', '；', '：']
       let cutIndex = -1
 
-      for (let i = maxLength - 10; i < maxLength; i++) {
+      const searchStart = Math.max(0, maxLength - 10)
+      const searchEnd = Math.min(remainingText.length, maxLength)
+
+      for (let i = searchStart; i < searchEnd; i++) {
         if (sentenceEndings.includes(remainingText[i])) {
           cutIndex = i + 1
           break
@@ -189,12 +192,24 @@ class SubtitleService {
       }
 
       // 如果找不到合适的分割点，按长度分割
-      if (cutIndex === -1) {
-        cutIndex = maxLength
+      if (cutIndex <= 0) {
+        cutIndex = Math.min(maxLength, remainingText.length)
       }
 
-      blocks.push(remainingText.substring(0, cutIndex).trim())
+      const previousRemainingText = remainingText
+      const segment = remainingText.substring(0, cutIndex).trim()
+      if (segment.length > 0) {
+        blocks.push(segment)
+      }
       remainingText = remainingText.substring(cutIndex).trim()
+
+      // 防止无限循环
+      if (previousRemainingText.length === remainingText.length && cutIndex === 0) {
+        if (remainingText.length > 0) {
+          blocks.push(remainingText)
+        }
+        break
+      }
     }
 
     return blocks
@@ -314,20 +329,192 @@ class SubtitleService {
    */
   async generateSubtitlesFromTTS(ttsResults, options = {}) {
     try {
-      const segments = ttsResults.map(result => ({
-        id: result.segmentId,
-        text: result.originalText || result.text || '未提供文本',
-        character: result.character || 'narrator',
-        emotion: result.emotion || 'neutral',
-        type: result.type || 'narration',
-        duration: result.duration || 0
-      }))
+      console.log('开始从TTS结果生成同步字幕，段落数:', ttsResults.length)
 
-      return await this.generateSubtitles(segments, options)
+      // 精确同步时间轴的处理
+      const syncedSegments = this.syncWithTTSTiming(ttsResults, options)
+
+      return await this.generateSubtitles(syncedSegments, options)
     } catch (error) {
       console.error('从TTS结果生成字幕失败:', error)
       throw error
     }
+  }
+
+  /**
+   * 与TTS时间轴同步
+   * @param {Array} ttsResults - TTS生成结果
+   * @param {Object} options - 同步选项
+   * @returns {Array} 同步后的段落
+   */
+  syncWithTTSTiming(ttsResults, options = {}) {
+    const {
+      startTimeOffset = 0,
+      minDuration = 1.0,
+      maxDuration = 7.0,
+      readingSpeed = 200,
+      syncMode = 'accurate' // accurate, estimated, hybrid
+    } = options
+
+    const syncedSegments = []
+    let globalTime = startTimeOffset
+
+    for (let i = 0; i < ttsResults.length; i++) {
+      const ttsResult = ttsResults[i]
+
+      // 获取准确的音频时间信息
+      let startTime = ttsResult.startTime !== undefined ? ttsResult.startTime : globalTime
+      let duration = ttsResult.duration || 0
+
+      // 根据同步模式调整时间
+      let adjustedStartTime, adjustedDuration
+
+      switch (syncMode) {
+        case 'accurate':
+          // 使用TTS提供的精确时间
+          adjustedStartTime = startTime + startTimeOffset
+          adjustedDuration = duration
+          break
+
+        case 'estimated':
+          // 基于文本长度估算时间
+          adjustedStartTime = globalTime
+          adjustedDuration = this.estimateTextDuration(
+            ttsResult.originalText || ttsResult.text || '',
+            readingSpeed
+          )
+          break
+
+        case 'hybrid':
+        default:
+          // 混合模式：优先使用TTS时间，回退到估算
+          if (ttsResult.startTime !== undefined && ttsResult.duration > 0) {
+            adjustedStartTime = ttsResult.startTime + startTimeOffset
+            adjustedDuration = ttsResult.duration
+          } else {
+            adjustedStartTime = globalTime
+            adjustedDuration = this.estimateTextDuration(
+              ttsResult.originalText || ttsResult.text || '',
+              readingSpeed
+            )
+          }
+          break
+      }
+
+      // 确保时长在合理范围内
+      adjustedDuration = Math.max(minDuration, Math.min(maxDuration, adjustedDuration))
+
+      // 检查文本是否需要分割
+      const text = ttsResult.originalText || ttsResult.text || '未提供文本'
+      const subtitleBlocks = this.splitTextForSubtitle(text, {
+        maxCharsPerLine: 42,
+        maxLinesPerSubtitle: 2
+      })
+
+      if (subtitleBlocks.length === 1) {
+        // 单个字幕块
+        syncedSegments.push({
+          id: i + 1,
+          text: subtitleBlocks[0].trim(),
+          character: ttsResult.character || 'narrator',
+          emotion: ttsResult.emotion || 'neutral',
+          type: ttsResult.type || 'narration',
+          startTime: adjustedStartTime,
+          endTime: adjustedStartTime + adjustedDuration,
+          duration: adjustedDuration,
+          audioSegment: {
+            id: ttsResult.segmentId || ttsResult.id,
+            path: ttsResult.audioFile,
+            originalStartTime: startTime,
+            originalDuration: duration
+          }
+        })
+      } else {
+        // 多个字幕块分配时间
+        const blockDuration = adjustedDuration / subtitleBlocks.length
+
+        subtitleBlocks.forEach((block, blockIndex) => {
+          const blockStartTime = adjustedStartTime + (blockIndex * blockDuration)
+          syncedSegments.push({
+            id: syncedSegments.length + 1,
+            text: block.trim(),
+            character: ttsResult.character || 'narrator',
+            emotion: ttsResult.emotion || 'neutral',
+            type: ttsResult.type || 'narration',
+            startTime: blockStartTime,
+            endTime: blockStartTime + blockDuration,
+            duration: blockDuration,
+            audioSegment: {
+              id: ttsResult.segmentId || ttsResult.id,
+              path: ttsResult.audioFile,
+              originalStartTime: startTime,
+              originalDuration: duration,
+              blockIndex,
+              totalBlocks: subtitleBlocks.length
+            }
+          })
+        })
+      }
+
+      // 更新全局时间
+      globalTime = Math.max(globalTime, adjustedStartTime + adjustedDuration)
+    }
+
+    console.log(`时间轴同步完成: 生成${syncedSegments.length}个字幕段，总时长: ${globalTime.toFixed(2)}秒`)
+    return syncedSegments
+  }
+
+  /**
+   * 验证时间轴同步准确性
+   * @param {Array} syncedSegments - 同步后的段落
+   * @param {Array} ttsResults - 原始TTS结果
+   * @returns {Object} 验证结果
+   */
+  validateTimingAccuracy(syncedSegments, ttsResults) {
+    const validation = {
+      isAccurate: true,
+      issues: [],
+      statistics: {
+        totalSegments: syncedSegments.length,
+        totalDuration: 0,
+        averageDuration: 0,
+        gaps: [],
+        overlaps: []
+      }
+    }
+
+    let totalDuration = 0
+
+    // 检查时间连续性和重叠
+    for (let i = 0; i < syncedSegments.length; i++) {
+      const segment = syncedSegments[i]
+      totalDuration = Math.max(totalDuration, segment.endTime)
+
+      if (i > 0) {
+        const prevSegment = syncedSegments[i - 1]
+        const gap = segment.startTime - prevSegment.endTime
+
+        if (gap > 0.5) {
+          validation.statistics.gaps.push({
+            from: prevSegment.id,
+            to: segment.id,
+            gap: gap
+          })
+        } else if (gap < -0.1) {
+          validation.statistics.overlaps.push({
+            segment1: prevSegment.id,
+            segment2: segment.id,
+            overlap: Math.abs(gap)
+          })
+          validation.isAccurate = false
+        }
+      }
+    }
+
+    validation.statistics.totalDuration = totalDuration
+    validation.statistics.averageDuration = totalDuration / syncedSegments.length
+
+    return validation
   }
 
   /**

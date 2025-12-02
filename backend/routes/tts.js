@@ -424,6 +424,122 @@ router.delete('/audio/:audioId', async (req, res) => {
   }
 })
 
+// 为小说生成完整音频
+router.post('/generate-novel/:novelId', async (req, res) => {
+  try {
+    const { novelId } = req.params
+    const { options = {} } = req.body
+
+    console.log(`开始为小说 ${novelId} 生成完整音频`)
+
+    // 初始化TTS服务
+    await ttsService.initialize()
+
+    // 生成完整音频
+    const result = await ttsService.generateNovelAudio(novelId, options)
+
+    res.json({
+      success: true,
+      message: '小说音频生成完成',
+      data: {
+        novelId,
+        audioFile: result.audioFile,
+        duration: result.duration,
+        segments: result.segments,
+        metadata: result.metadata
+      }
+    })
+
+  } catch (error) {
+    console.error(`小说 ${req.params.novelId} 音频生成失败:`, error.message)
+    res.status(500).json({
+      success: false,
+      error: '小说音频生成失败',
+      details: error.message
+    })
+  }
+})
+
+// 从TTS脚本生成音频
+router.post('/generate-from-script/:novelId', async (req, res) => {
+  try {
+    const { novelId } = req.params
+    const { ttsScript, options = {} } = req.body
+
+    if (!ttsScript || !ttsScript.segments) {
+      return res.status(400).json({
+        success: false,
+        error: 'TTS脚本格式不正确'
+      })
+    }
+
+    console.log(`从TTS脚本为小说 ${novelId} 生成音频，段落数: ${ttsScript.segments.length}`)
+
+    // 初始化TTS服务
+    await ttsService.initialize()
+
+    // 生成音频
+    const result = await ttsService.generateAudioFromScript(ttsScript, {
+      ...options,
+      novelId
+    })
+
+    res.json({
+      success: true,
+      message: '音频生成完成',
+      data: {
+        novelId,
+        audioFile: result.audioFile,
+        duration: result.duration,
+        metadata: result.metadata,
+        segments: result.metadata.segments
+      }
+    })
+
+  } catch (error) {
+    console.error(`从TTS脚本生成音频失败:`, error.message)
+    res.status(500).json({
+      success: false,
+      error: '音频生成失败',
+      details: error.message
+    })
+  }
+})
+
+// 获取TTS语音选项
+router.get('/voice-options', async (req, res) => {
+  try {
+    const voiceOptions = await ttsService.getVoiceOptions()
+    res.json({
+      success: true,
+      data: voiceOptions
+    })
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: '获取语音选项失败',
+      details: error.message
+    })
+  }
+})
+
+// 获取TTS系统状态
+router.get('/system-status', async (req, res) => {
+  try {
+    const systemStatus = await ttsService.getSystemStatus()
+    res.json({
+      success: true,
+      data: systemStatus
+    })
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: '获取系统状态失败',
+      details: error.message
+    })
+  }
+})
+
 // 清理临时文件
 router.post('/cleanup', async (req, res) => {
   try {
@@ -436,6 +552,156 @@ router.post('/cleanup', async (req, res) => {
     res.status(500).json({
       success: false,
       error: '清理临时文件失败',
+      details: error.message
+    })
+  }
+})
+
+// 生成音频并同步创建字幕
+router.post('/generate-with-subtitles/:novelId', async (req, res) => {
+  try {
+    const { novelId } = req.params
+    const { ttsScript, subtitleOptions = {}, audioOptions = {} } = req.body
+
+    if (!ttsScript || !ttsScript.segments) {
+      return res.status(400).json({
+        success: false,
+        error: 'TTS脚本格式不正确'
+      })
+    }
+
+    console.log(`开始为小说 ${novelId} 生成音频和同步字幕`)
+
+    // 初始化TTS服务
+    await ttsService.initialize()
+
+    // 1. 生成音频
+    const audioResult = await ttsService.generateAudioFromScript(ttsScript, {
+      ...audioOptions,
+      novelId
+    })
+
+    // 2. 从音频生成结果创建同步字幕
+    const SubtitleService = require('../src/services/subtitleService')
+    const subtitleService = new SubtitleService()
+
+    // 将音频结果转换为TTS结果格式用于字幕生成
+    const ttsResultsForSubtitle = audioResult.segments.map(segment => ({
+      segmentId: segment.id,
+      originalText: segment.text,
+      text: segment.text,
+      character: segment.character,
+      emotion: segment.emotion,
+      type: segment.type,
+      startTime: segment.startTime,
+      endTime: segment.endTime,
+      duration: segment.duration,
+      audioFile: segment.audioFile
+    }))
+
+    // 3. 生成同步字幕
+    const subtitleResult = await subtitleService.generateSubtitlesFromTTS(
+      ttsResultsForSubtitle,
+      {
+        ...subtitleOptions,
+        syncMode: 'accurate', // 使用精确时间同步
+        outputFormat: 'srt'
+      }
+    )
+
+    // 4. 验证同步准确性
+    const validation = subtitleService.validateTimingAccuracy(
+      subtitleResult.segments,
+      ttsResultsForSubtitle
+    )
+
+    res.json({
+      success: true,
+      message: '音频和同步字幕生成完成',
+      data: {
+        novelId,
+        audio: {
+          audioFile: audioResult.audioFile,
+          duration: audioResult.duration,
+          segments: audioResult.segments,
+          metadata: audioResult.metadata
+        },
+        subtitles: {
+          srtFile: subtitleResult.srtFile,
+          vttFile: subtitleResult.vttFile,
+          segments: subtitleResult.segments,
+          metadata: subtitleResult.metadata
+        },
+        synchronization: {
+          isAccurate: validation.isAccurate,
+          totalSegments: validation.statistics.totalSegments,
+          totalDuration: validation.statistics.totalDuration,
+          averageDuration: validation.statistics.averageDuration,
+          issues: validation.statistics.gaps.length + validation.statistics.overlaps.length
+        }
+      }
+    })
+
+  } catch (error) {
+    console.error(`生成音频和同步字幕失败:`, error.message)
+    res.status(500).json({
+      success: false,
+      error: '生成音频和同步字幕失败',
+      details: error.message
+    })
+  }
+})
+
+// 为已有音频生成同步字幕
+router.post('/sync-subtitles/:novelId', async (req, res) => {
+  try {
+    const { novelId } = req.params
+    const { audioSegments, subtitleOptions = {} } = req.body
+
+    if (!audioSegments || !Array.isArray(audioSegments)) {
+      return res.status(400).json({
+        success: false,
+        error: '音频段落数据格式不正确'
+      })
+    }
+
+    console.log(`为小说 ${novelId} 的已有音频生成同步字幕`)
+
+    // 初始化字幕服务
+    const SubtitleService = require('../src/services/subtitleService')
+    const subtitleService = new SubtitleService()
+
+    // 生成同步字幕
+    const subtitleResult = await subtitleService.generateSubtitlesFromTTS(
+      audioSegments,
+      {
+        ...subtitleOptions,
+        syncMode: 'accurate',
+        outputFormat: 'both'
+      }
+    )
+
+    // 验证同步准确性
+    const validation = subtitleService.validateTimingAccuracy(
+      subtitleResult.segments,
+      audioSegments
+    )
+
+    res.json({
+      success: true,
+      message: '同步字幕生成完成',
+      data: {
+        novelId,
+        subtitles: subtitleResult,
+        validation: validation
+      }
+    })
+
+  } catch (error) {
+    console.error(`生成同步字幕失败:`, error.message)
+    res.status(500).json({
+      success: false,
+      error: '生成同步字幕失败',
       details: error.message
     })
   }

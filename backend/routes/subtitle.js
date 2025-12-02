@@ -34,14 +34,23 @@ const fromTTSSchema = Joi.object({
   novelId: Joi.string().required(),
   ttsResults: Joi.array().items(Joi.object({
     segmentId: Joi.string().required(),
+    originalText: Joi.string(),
     text: Joi.string().required(),
     character: Joi.string().default('narrator'),
     emotion: Joi.string().default('neutral'),
     type: Joi.string().default('narration'),
     duration: Joi.number().default(0),
-    outputPath: Joi.string().required()
+    startTime: Joi.number(),
+    endTime: Joi.number(),
+    audioFile: Joi.string()
   })).required(),
-  options: Joi.object().default({})
+  options: Joi.object({
+    outputFormat: Joi.string().valid('srt', 'vtt', 'both').default('srt'),
+    encoding: Joi.string().valid('utf-8', 'gbk', 'utf-16').default('utf-8'),
+    maxLineLength: Joi.number().default(42),
+    maxDuration: Joi.number().default(7),
+    syncMode: Joi.string().valid('accurate', 'estimated', 'hybrid').default('hybrid')
+  }).default({})
 })
 
 // 初始化字幕服务
